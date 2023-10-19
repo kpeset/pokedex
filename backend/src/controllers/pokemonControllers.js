@@ -50,9 +50,44 @@ const searchByName = (req, res) => {
   });
 };
 
+const add = (req, res) => {
+  const pokemon = req.body;
+
+  models.pokemon
+    .insert(pokemon)
+    .then(([result]) => {
+      console.info(result);
+      res.status(200).send("Le pokemon a bien été ajouté");
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Erreur de sauvegarde");
+    });
+};
+
+const edit = (req, res) => {
+  const { id } = req.params;
+  const pokemon = req.body;
+
+  console.error("test", pokemon);
+
+  models.pokemon
+    .update(pokemon, id)
+    .then(([result]) => {
+      console.info(result);
+      res.status(200).send("Le pokemon a bien été modifié");
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Erreur lors de la modification");
+    });
+};
+
 module.exports = {
   browse,
   read,
   searchByType,
   searchByName,
+  add,
+  edit,
 };

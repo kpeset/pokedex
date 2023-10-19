@@ -14,6 +14,20 @@ class PokemonManager extends AbstractManager {
       `${name}%`,
     ]);
   }
+
+  insert(pokemon) {
+    return this.database.query(
+      `INSERT INTO pokemon (name, type, weight, image) VALUES (?, ?, ?, ?)`,
+      [pokemon.name, pokemon.type, pokemon.weight, pokemon.image]
+    );
+  }
+
+  update(pokemon, id) {
+    return this.database.query(
+      `UPDATE pokemon SET name = ?, type = ?, weight = ?, image = ? WHERE id = ?`,
+      [pokemon.name, pokemon.type, pokemon.weight, pokemon.image, id]
+    );
+  }
 }
 
 module.exports = PokemonManager;
