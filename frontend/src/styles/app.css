@@ -1,49 +1,49 @@
-@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Merienda:wght@300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Merienda:wght@300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
-  --font-text: "Kanit", sans-sherif;
-  --color-white-1: #fff;
-  --color-white-2: #f8f9fa;
-  --color-white-3: #ced4da;
-  --color-grey-1: #adb5bd;
-  --color-grey-2: #6c757d;
-  --color-grey-3: #343a40;
-  --color-black: #212529;
-  --color-yellow: #f4dc26;
+    --font-text: "Kanit", sans-sherif;
+    --color-white-1: #FFF;
+    --color-white-2: #F8F9FA;
+    --color-white-3: #CED4DA;
+    --color-grey-1: #ADB5BD;
+    --color-grey-2: #6C757D;
+    --color-grey-3: #343A40;
+    --color-black: #212529;
+    --color-yellow: #F4DC26;
 }
 
 * {
-  font-family: var(--font-text);
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  color: var(--color-black);
+    font-family: var(--font-text);
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    color: var(--color-black);
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .content {
-  min-height: 81vh;
-  padding: 4rem 2rem;
+    min-height: 81vh;
+    padding: 4rem 10rem;
 }
 
 ul,
 li {
-  list-style: none;
+    list-style: none;
 }
 
 a {
-  text-decoration: none;
-  color: initial;
+    text-decoration: none;
+    color: initial;
 }
 
 input,
 button {
-  all: unset;
+    all: unset;
 }
 
 body {
-  background-color: var(--color-white-2);
+    background-color: var(--color-white-2);
 }

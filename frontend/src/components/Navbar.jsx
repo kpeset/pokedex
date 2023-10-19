@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
 export default function Navbar() {
   return (
@@ -14,6 +15,7 @@ export default function Navbar() {
           <Link to="/pokedex">Pokedex</Link>
         </li>
       </ul>
+      <SearchBar />
     </nav>
   );
 }
