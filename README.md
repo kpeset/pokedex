@@ -34,3 +34,22 @@ Pour installer ce repo, il vous suffit de cloner ce repository sur votre ordinat
 - `dev-back` : Démarre uniquement le server backend
 - `lint` : Exécute les outils de validation de code
 - `fix` : Répare les erreurs de linter
+
+## Fonctionnalités actuelles
+
+### 1ère itération
+
+- Création de l'API pokedex
+- Création des routes GET côté backend
+
+### 2ème itération
+
+- Affichage des pokemon côté frontend (React)
+
+### 3ème itération
+
+- Création d'une barre de recherche fonctionnelle côté frontend
+
+### 4ème itération
+
+- Création des routes POST, PUT, DELETE pour la gestion de nos pokemon
