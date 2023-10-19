@@ -72,3 +72,5 @@ Une fois que nous avons le résultat de notre requête API, nous réutilisons no
 ```
 {data.map((result) => <PokemonCard key={result.id} details={result} />)}
 ```
+
+**Attention :** Pour une meilleure lisibilité du code, j'ai mis dans le `useEffect` les deux requêtes **axios**. Donc nous avons dans notre requête axios `searchName` et `searchType`.
