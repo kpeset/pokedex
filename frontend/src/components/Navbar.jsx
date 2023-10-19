@@ -14,6 +14,9 @@ export default function Navbar() {
         <li>
           <Link to="/pokedex">Pokedex</Link>
         </li>
+        <li>
+          <Link to="/backoffice">Backoffice</Link>
+        </li>
       </ul>
       <SearchBar />
     </nav>
