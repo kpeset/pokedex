@@ -53,3 +53,7 @@ Pour installer ce repo, il vous suffit de cloner ce repository sur votre ordinat
 ### 4ème itération
 
 - Création des routes POST, PUT, DELETE pour la gestion de nos pokemon
+
+### 5ème itération
+
+- Création du backoffice côté front, pour ajouter et supprimer un pokemon
