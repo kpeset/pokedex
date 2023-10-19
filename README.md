@@ -11,6 +11,10 @@ Voici nos différents objectifs :
 
 ## Explication du code
 
+### Préambule
+
+Si vous voulez plus de détails concernant le code, je vous invite à regarder la vidéo concernant la présentation du template côté backend.
+
 ### Controller et model
 
 Le controller permet la gestion des requêtes HTTP. Il agit comme une interface entre les routes et les models.
@@ -86,3 +90,16 @@ Ici, il s'agit d'une simple requête SQL.
 ```
     super({ table: "pokemon" });
 ```
+
+### Création des routes
+
+Maintenant que notre controller et notre model sont prêts, nous allons pouvoir créer nos routes dans le fichier `router.js`:
+
+```
+const pokemonControllers = require("./controllers/pokemonControllers");
+
+router.get("/pokemon", pokemonControllers.browse);
+router.get("/pokemon/type/:type", pokemonControllers.searchByType);
+```
+
+Nous commençons par importer nos controllers. Puis dans nos routes, nous dirons d'utiliser telle ou telle méthode qui se trouve dans le controller.
