@@ -29,10 +29,10 @@ pool.getConnection().catch(() => {
 
 const models = {};
 
-const ItemManager = require("./ItemManager");
+const PokemonManager = require("./PokemonManager");
 
-models.item = new ItemManager();
-models.item.setDatabase(pool);
+models.pokemon = new PokemonManager();
+models.pokemon.setDatabase(pool);
 
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model

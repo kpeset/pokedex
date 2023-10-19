@@ -2,12 +2,11 @@ const express = require("express");
 
 const router = express.Router();
 
-const itemControllers = require("./controllers/itemControllers");
+const pokemonControllers = require("./controllers/pokemonControllers");
 
-router.get("/items", itemControllers.browse);
-router.get("/items/:id", itemControllers.read);
-router.put("/items/:id", itemControllers.edit);
-router.post("/items", itemControllers.add);
-router.delete("/items/:id", itemControllers.destroy);
+router.get("/pokemon", pokemonControllers.browse);
+router.get("/pokemon/:id", pokemonControllers.read);
+router.get("/pokemon/type/:type", pokemonControllers.searchByType);
+router.get("/pokemon/name/:name", pokemonControllers.searchByName);
 
 module.exports = router;
