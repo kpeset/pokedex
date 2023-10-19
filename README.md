@@ -1,36 +1,48 @@
-# Express : Pokedex
+# React : Notre premiere requête API
 
 ## Objectif de l'atelier
+Lors de cet atelier, nous avons organisé nos routes et avons fait notre première requête API.
 
-Nous utiliserons cet atelier "fil rouge" lors de nos groupe support. C'est sur cette applications que nous testerons les fonctionnalités Express que l'on va apprendre lors de notre projet 3.
-Il s'agit d'un atelier fullstack avec d'un côté le backend et de l'autre le frontend, basé sur le template de la Wild.
+## Explication du code
+### Organisation de l'application
 
-## Utilisation
+Voici comment sera organisée notre application pour le moment :
 
-Chaque fois que nous allons coder une feature, nous allons créer une branche spécifique.
-De cette façon, vous pourrez aller de branches en branches pour voir le code que l'on a crée et aussi l'analyser.
-Je vous invite aussi à lire le Readme de chaque branche.
+- main.jxs : Fichier parent de notre application, là où nous importons `BrowserRouter` et nos différents fichiers **CSS**
+  - App.jsx : Structure de notre application. Affichera Navbar/Footer mais aussi le contenu de nos pages dynamiquement (**Content**)
+  - Content.jsx : Composant dans lequel nous allons créer toutes nos routes
 
-## Prérequis
 
-Pour les utilisatrices de windows **UNIQUEMENT**, vous denez saisir ces commandes dans le terminal de votre VS CODE :
+
+L'application contiendra pour le moment les dossiers suivants :
+
+- **Components** : Ce dossier contiendra tous nos composants
+- **Pages** : C'est ici que nous mettrons nos différentes pages
+- **Styles** : Dossier pour stocker nos fichiers css
+
+
+### Pokedex & Requête API
+
+Bien que notre backend soit en local, la requête API n'est pas différentes celles que nous avons fait précédemment dans les autres ateliers et sur le projet 2. Regardons le code sur la page Pokedex :
 
 ```
-git config --global core.eol lf
-git config --global core.autocrlf false
+    useEffect(() => {
+        axios
+            .get(`http://localhost:8000/pokemons`)
+            .then((response) => {
+                setData(response.data);
+            });
+    }, [])
 ```
 
-## Installation
+Ici, nous mettons notre requête API dans un `useEffect`au tableau de dépendance vide, afin d'exécuter une seule fois notre requête que nous stockerons dans un state `data`.
 
-Pour installer ce repo, il vous suffit de cloner ce repository sur votre ordinateur et de faire `npm install` afin d'installer les dépendances.
+Il ne nous reste plus qu'à afficher notre composant `PokemonCard` qui recevra en props la réponse de la requête API. Nous bouclerons notre tableau d'objet `data` en utilisant la méthode **map** :
 
-**ATTENTION :** Pour executer le server backend, vous devez créer et configurer le fichier `.env` dans votre dossier `backend/`. Vous pouvez vous référer à l'exemple situé dans `backend/.env.sample`.
+```
+<div className="pokemon_list">
+  {data.map((pokemon) => <PokemonCard key={pokemon.id} details={pokemon} />)}
+</div>
+```
 
-### Commandes disponibles
 
-- `migrate` : Execute la migration de la base de données
-- `dev` : Démarre les deux servers (front et back)
-- `dev-front` : Démarre uniquement le server react
-- `dev-back` : Démarre uniquement le server backend
-- `lint` : Exécute les outils de validation de code
-- `fix` : Répare les erreurs de linter
