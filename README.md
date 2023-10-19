@@ -43,7 +43,7 @@ Voici le détail de chacune des branches :
 - **step_02** : [**React - Affichage de la liste de tous les pokemon**](https://github.com/kpeset/pokedex_react/tree/step_02)
 - **step_03** : [**React - Création d'une barre de recherche**](https://github.com/kpeset/pokedex_react/tree/step_02)
 - **step_04** : [**Express - Création des routes POST, PUT, DELETE pour ajouter, modifier et supprimer un pokemon**](https://github.com/kpeset/pokedex_react/tree/step_02)
-- **step_02** : [**React - Création du backoffice pour ajouter et supprimer un pokemon de la BDD côté Frontend**](https://github.com/kpeset/pokedex_react/tree/step_02)
+- **step_05** : [**React - Création du backoffice pour ajouter et supprimer un pokemon de la BDD côté Frontend**](https://github.com/kpeset/pokedex_react/tree/step_02)
 
 
 ## Fonctionnalités actuelles
