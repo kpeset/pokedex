@@ -50,5 +50,39 @@ findAll() {
   }
 ```
 
+### Création du controller et du model pour lister tous les pokemon d'un certain type
 
+Voyons maintenant un exemple dont nous devrons aussi coder le model. Nous allons lister les pokemon selon le type. Commençons par la création de notre **controller** :
 
+```
+const searchByType = (req, res) => {
+  const { type } = req.params;
+  models.pokemon.findByType(type).then(([rows]) => {
+    if (rows[0] == null) {
+      res.sendStatus(404);
+    } else {
+      res.send(rows);
+    }
+  });
+};
+```
+
+- `searchByType` est le nom de notre fonction que nous avons crée
+- `const { type } = req.params` permet de dire qu'on va utiliser des params qui s'appellent **type**
+- `models.pokemon.findByType(type)` nous allons utiliser la méthode findByType que nous allons créer dans notre model et cette méthode aura en paramètre nos params `type`.
+
+Maintenant nous pouvons créer notre model dans `PokemonManager.js` :
+
+```
+  findByType(type) {
+    return this.database.query(`SELECT * FROM pokemon WHERE type = ?`, [type]);
+  }
+```
+
+Ici, il s'agit d'une simple requête SQL. 
+
+**ATTENTION :** N'oubliez pas de préciser qu'il s'agit de la table `pokemon` :
+
+```
+    super({ table: "pokemon" });
+```
