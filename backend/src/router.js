@@ -11,5 +11,6 @@ router.get("/pokemon/name/:name", pokemonControllers.searchByName);
 
 router.post("/pokemon", pokemonControllers.add);
 router.put("/pokemon/:id", pokemonControllers.edit);
+router.delete("/pokemon/:id", pokemonControllers.destroy);
 
 module.exports = router;

@@ -83,6 +83,18 @@ const edit = (req, res) => {
     });
 };
 
+const destroy = (req, res) => {
+  const { id } = req.params;
+
+  models.pokemon.delete(id).then(([result]) => {
+    if (result.affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.status(200).send("Pokemon supprimé avec succès");
+    }
+  });
+};
+
 module.exports = {
   browse,
   read,
@@ -90,4 +102,5 @@ module.exports = {
   searchByName,
   add,
   edit,
+  destroy,
 };
