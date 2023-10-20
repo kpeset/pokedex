@@ -17,6 +17,9 @@ export default function Navbar() {
         <li>
           <Link to="/backoffice">Backoffice</Link>
         </li>
+        <li>
+          <Link to="/updatePokemon">UpdatePokemon</Link>
+        </li>
       </ul>
       <SearchBar />
     </nav>

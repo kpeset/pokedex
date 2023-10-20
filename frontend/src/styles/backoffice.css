@@ -52,3 +52,31 @@
     padding: 1rem 2rem;
     text-align: center;
 }
+
+.update_pokemon_panel {
+    background-color: rgb(215, 215, 215);
+    min-height: 10rem;
+    padding: 1rem 2rem;
+}
+
+.update_pokemon_panel > div> form {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 2rem;
+}
+
+.update_pokemon_panel > div> form > input {
+    margin: 1rem 0;
+    padding: 1rem 2rem;
+    background-color: white;
+    border: 1px solid black;
+    width: 75%;
+}
+
+.update_pokemon_panel > div> form > button[type="submit"] {
+    background-color: black;
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    width: 75%;
+}

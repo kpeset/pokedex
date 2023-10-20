@@ -3,7 +3,6 @@ import axios from "axios";
 
 export default function Backoffice() {
   const [pokemonList, setPokemonList] = useState([]);
-
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [weight, setWeight] = useState("");
