@@ -41,3 +41,9 @@ VALUES
 ("Dracolosse", "Dragon", 210, "https://assets.pokemon.com/assets/cms2/img/pokedex/full/149.png"),
 ("Mewtwo", "Psy", 122, "https://assets.pokemon.com/assets/cms2/img/pokedex/full/150.png"),
 ("Feunard", "Feu", 19.9, "https://assets.pokemon.com/assets/cms2/img/pokedex/full/038.png");
+
+CREATE TABLE users (
+  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  hashedPassword VARCHAR(255) NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;

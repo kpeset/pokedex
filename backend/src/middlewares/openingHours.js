@@ -1,6 +1,6 @@
 const openingHoursMiddleware = (req, res, next) => {
   const currentHour = new Date().getHours();
-  const openingHour = 13;
+  const openingHour = 10;
   const closingHour = 17;
 
   if (currentHour >= openingHour && currentHour < closingHour) {
