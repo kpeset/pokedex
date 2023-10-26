@@ -19,16 +19,12 @@ const postUser = (req, res) => {
     .insert(email, hashedPassword)
     .then(([result]) => {
       console.info(result);
-      res
-        .status(200)
-        .json({ Message: "Utilisateur crée avec succès", Email: email });
+      res.status(200).json({ message: "Utilisateur crée avec succès", email });
     })
     .catch((err) => {
       console.error(err);
       res.status(500).json({
-        Source: "controller",
-        Erreur: "Erreur lors de l'enregistrement de l'utilisateur",
-        Raison: err.sqlMessage,
+        error: err.errno,
       });
     });
 };

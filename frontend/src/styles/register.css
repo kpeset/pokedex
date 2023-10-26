@@ -1,0 +1,16 @@
+.register_form {
+    margin: 0 auto;
+    padding: 4rem 0;
+    background-color: var(--color-white-3);
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register_form input {
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 1rem;
+    width: 80%;
+}

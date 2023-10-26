@@ -20,6 +20,9 @@ export default function Navbar() {
         <li>
           <Link to="/updatePokemon">UpdatePokemon</Link>
         </li>
+        <li>
+          <Link to="/register">S'enregistrer</Link>
+        </li>
       </ul>
       <SearchBar />
     </nav>

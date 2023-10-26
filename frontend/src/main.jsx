@@ -9,6 +9,7 @@ import "./styles/pokedex.css";
 import "./styles/card.css";
 import "./styles/search_bar.css";
 import "./styles/backoffice.css";
+import "./styles/register.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

@@ -4,6 +4,7 @@ import Pokedex from "../pages/Pokedex";
 import SearchResult from "../pages/SearchResult";
 import Backoffice from "../pages/Backoffice";
 import UpdatePokemon from "../pages/UpdatePokemon";
+import Register from "../pages/Register";
 
 export default function Content() {
   return (
@@ -14,6 +15,7 @@ export default function Content() {
         <Route path="/search/:userResearch" element={<SearchResult />} />
         <Route path="/backoffice" element={<Backoffice />} />
         <Route path="/updatePokemon" element={<UpdatePokemon />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </section>
   );
