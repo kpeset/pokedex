@@ -9,12 +9,10 @@ const openingHours = require("./middlewares/openingHours");
 
 const auth = require("./middlewares/auth");
 
-router.get("/pokemon", pokemonControllers.browse);
+router.get("/pokemon", auth.checkIfIsAllowed, pokemonControllers.browse);
 router.get("/pokemon/:id", openingHours, pokemonControllers.read);
 router.get("/pokemon/type/:type", pokemonControllers.searchByType);
 router.get("/pokemon/name/:name", pokemonControllers.searchByName);
-
-router.get("/jobs", pokemonControllers.sendJobData);
 
 router.post("/pokemon", pokemonControllers.add);
 router.put("/pokemon/:id", pokemonControllers.edit);
@@ -28,5 +26,7 @@ router.post(
   userControllers.postUser
 );
 router.put("/users/:id", auth.hashPassword, userControllers.updateUser);
+
+router.post("/login", auth.checkEmailIfExist, userControllers.verifyPassword);
 
 module.exports = router;

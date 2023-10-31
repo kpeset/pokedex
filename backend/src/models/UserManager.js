@@ -20,6 +20,10 @@ class UserManager extends AbstractManager {
       [email, hashedPassword, id]
     );
   }
+
+  searchByEmail(email) {
+    return this.database.query(`SELECT * FROM users WHERE email = ?`, [email]);
+  }
 }
 
 module.exports = UserManager;
