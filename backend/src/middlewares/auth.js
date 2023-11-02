@@ -78,7 +78,7 @@ const checkIfIsAllowed = (req, res, next) => {
     console.info("token de checkIfIsAllowed: ", authToken);
 
     if (!authToken) {
-      return res.sendStatus(401);
+      return res.status(401).send("Désolé, mais c'est ciao !");
     }
 
     const payload = jwt.verify(authToken, process.env.JWT_SECRET);

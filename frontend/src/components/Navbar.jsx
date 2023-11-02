@@ -23,6 +23,9 @@ export default function Navbar() {
         <li>
           <Link to="/register">S'enregistrer</Link>
         </li>
+        <li>
+          <Link to="/login">Se connecter</Link>
+        </li>
       </ul>
       <SearchBar />
     </nav>

@@ -95,13 +95,6 @@ const destroy = (req, res) => {
   });
 };
 
-const sendJobData = (req, res) => {
-  res.status(200).json({
-    titre: "développeur",
-    contrat: "CDI",
-  });
-};
-
 module.exports = {
   browse,
   read,
@@ -110,5 +103,4 @@ module.exports = {
   add,
   edit,
   destroy,
-  sendJobData,
 };
