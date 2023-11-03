@@ -20,6 +20,12 @@ class AbstractManager {
   setDatabase(database) {
     this.database = database;
   }
+
+  searchByEmail(email) {
+    return this.database.query(`SELECT * FROM ${this.table} WHERE email = ?`, [
+      email,
+    ]);
+  }
 }
 
 module.exports = AbstractManager;

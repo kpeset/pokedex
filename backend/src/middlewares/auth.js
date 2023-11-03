@@ -63,11 +63,31 @@ const checkEmailIfExist = (req, res, next) => {
   models.user.searchByEmail(email).then(([user]) => {
     if (user.length !== 0) {
       // eslint-disable-next-line prefer-destructuring
-      req.user = user[0];
+      req.user = {
+        email: user[0].email,
+        role: "user",
+        hashedPassword: user[0].hashedPassword,
+      };
       console.info("req.user : ", req.user);
       next();
     } else {
-      res.sendStatus(401);
+      models.admin.searchByEmail(email).then(([admin]) => {
+        if (admin.length !== 0) {
+          // eslint-disable-next-line prefer-destructuring
+          req.user = admin[0];
+
+          req.user = {
+            email: admin[0].email,
+            role: "admin",
+            hashedPassword: admin[0].hashedPassword,
+          };
+
+          console.info(req.user);
+          next();
+        } else {
+          res.sendStatus(401);
+        }
+      });
     }
   });
 };

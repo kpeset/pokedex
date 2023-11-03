@@ -39,6 +39,11 @@ const UserManager = require("./UserManager");
 models.user = new UserManager();
 models.user.setDatabase(pool);
 
+const AdminManager = require("./AdminManager");
+
+models.admin = new AdminManager();
+models.admin.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 

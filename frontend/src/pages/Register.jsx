@@ -25,7 +25,7 @@ export default function Register() {
 
     if (password === checkedPassword) {
       axios
-        .post("http://localhost:5000/users", {
+        .post(`${import.meta.env.VITE_BACKEND_URL}/users`, {
           email,
           password,
         })

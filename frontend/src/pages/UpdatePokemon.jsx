@@ -15,26 +15,30 @@ export default function UpdatePokemon() {
   const [selectedValue, setSelectedValue] = useState("");
 
   const getPokemonList = () => {
-    axios.get(`http://localhost:5000/pokemon`).then((response) => {
-      setPokemonList(response.data);
-    });
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/pokemon`)
+      .then((response) => {
+        setPokemonList(response.data);
+      });
   };
 
   const getOnePokemon = (id) => {
-    axios.get(`http://localhost:5000/pokemon/${id}`).then((response) => {
-      setSelectedPokemon({
-        id: response.data.id || null,
-        name: response.data.name || "",
-        type: response.data.type || "",
-        weight: response.data.weight || "",
-        image: response.data.image || "",
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/pokemon/${id}`)
+      .then((response) => {
+        setSelectedPokemon({
+          id: response.data.id || null,
+          name: response.data.name || "",
+          type: response.data.type || "",
+          weight: response.data.weight || "",
+          image: response.data.image || "",
+        });
       });
-    });
   };
 
   const updatePokemon = (id) => {
     axios
-      .put(`http://localhost:5000/pokemon/${id}`, {
+      .put(`${import.meta.env.VITE_BACKEND_URL}/pokemon/${id}`, {
         name: selectedPokemon.name,
         type: selectedPokemon.type,
         weight: selectedPokemon.weight,

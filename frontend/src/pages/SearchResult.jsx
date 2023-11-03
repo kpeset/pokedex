@@ -12,7 +12,7 @@ export default function SearchResult() {
 
   const searchName = () => {
     axios
-      .get(`http://localhost:5000/pokemon/name/${userResearch}`)
+      .get(`${import.meta.env.VITE_BACKEND_URL}/pokemon/name/${userResearch}`)
       .then((response) => {
         setDataName(response.data);
       })
@@ -24,7 +24,7 @@ export default function SearchResult() {
 
   const searchType = () => {
     axios
-      .get(`http://localhost:5000/pokemon/type/${userResearch}`)
+      .get(`${import.meta.env.VITE_BACKEND_URL}/pokemon/type/${userResearch}`)
       .then((response) => {
         setDataType(response.data);
       })

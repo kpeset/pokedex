@@ -7,6 +7,8 @@ const userControllers = require("./controllers/userControllers");
 
 const openingHours = require("./middlewares/openingHours");
 
+const authServices = require("./services/authServices");
+
 const auth = require("./middlewares/auth");
 
 router.get("/pokemon", auth.checkIfIsAllowed, pokemonControllers.browse);
@@ -27,6 +29,6 @@ router.post(
 );
 router.put("/users/:id", auth.hashPassword, userControllers.updateUser);
 
-router.post("/login", auth.checkEmailIfExist, userControllers.verifyPassword);
+router.post("/login", auth.checkEmailIfExist, authServices.verifyPassword);
 
 module.exports = router;

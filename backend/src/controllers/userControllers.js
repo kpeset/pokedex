@@ -1,5 +1,3 @@
-const argon2 = require("argon2");
-const jwt = require("jsonwebtoken");
 const models = require("../models");
 
 const getAllUsers = (req, res) => {
@@ -54,27 +52,4 @@ const updateUser = (req, res) => {
   });
 };
 
-const verifyPassword = (req, res) => {
-  argon2
-    .verify(req.user.hashedPassword, req.body.password)
-    .then((isVerified) => {
-      if (isVerified) {
-        const payload = {
-          sub: req.user.id,
-          email: req.user.email,
-        };
-
-        const token = jwt.sign(payload, process.env.JWT_SECRET, {
-          expiresIn: "1h",
-        });
-
-        res.cookie("authToken", token);
-
-        res.status(200).send("Connexion réussie");
-      } else {
-        res.sendStatus(401);
-      }
-    });
-};
-
-module.exports = { getAllUsers, postUser, updateUser, verifyPassword };
+module.exports = { getAllUsers, postUser, updateUser };

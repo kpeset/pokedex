@@ -9,14 +9,16 @@ export default function Backoffice() {
   const [image, setImage] = useState("");
 
   const getPokemonList = () => {
-    axios.get(`http://localhost:5000/pokemon`).then((response) => {
-      setPokemonList(response.data);
-    });
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/pokemon`)
+      .then((response) => {
+        setPokemonList(response.data);
+      });
   };
 
   const addPokemon = () => {
     axios
-      .post(`http://localhost:5000/pokemon`, {
+      .post(`${import.meta.env.VITE_BACKEND_URL}/pokemon`, {
         name,
         type,
         weight,
@@ -29,9 +31,11 @@ export default function Backoffice() {
   };
 
   const deletePokemon = (id) => {
-    axios.delete(`http://localhost:5000/pokemon/${id}`).then((response) => {
-      console.info(response);
-    });
+    axios
+      .delete(`${import.meta.env.VITE_BACKEND_URL}/pokemon/${id}`)
+      .then((response) => {
+        console.info(response);
+      });
     getPokemonList();
   };
 

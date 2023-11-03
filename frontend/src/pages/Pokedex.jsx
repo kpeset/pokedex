@@ -8,7 +8,7 @@ export default function Pokedex() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/pokemon/`, {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/pokemon`, {
         withCredentials: true,
       })
       .then((response) => {

@@ -47,3 +47,17 @@ CREATE TABLE users (
   email VARCHAR(255) UNIQUE NOT NULL,
   hashedPassword VARCHAR(255) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+INSERT INTO `users` (`email`, `hashedPassword`)
+VALUES
+("kevin@gmail.com", "$argon2id$v=19$m=65536,t=5,p=1$4OfSPAVkqfqUdLKEdK66Qw$rcfxXDNIU6UdBsabM7t2IZbe4hQe4xBvOh8Wh5pK+qg");
+
+CREATE TABLE admin (
+  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  hashedPassword VARCHAR(255) NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+INSERT INTO `admin` (`email`, `hashedPassword`)
+VALUES
+("admin@gmail.com", "$argon2id$v=19$m=65536,t=5,p=1$ikpFm/0Ded52TiFU08Y2uw$MkLfR6uw5vFZbB0vBOmbrUIWumck3tS0K8TWj9aDpWw");
