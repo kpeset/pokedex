@@ -9,6 +9,8 @@ const openingHours = require("./middlewares/openingHours");
 
 const authServices = require("./services/authServices");
 
+const uploadMiddleware = require("./middlewares/upload");
+
 const auth = require("./middlewares/auth");
 
 router.get("/pokemon", auth.checkIfIsAllowed, pokemonControllers.browse);
@@ -16,7 +18,7 @@ router.get("/pokemon/:id", openingHours, pokemonControllers.read);
 router.get("/pokemon/type/:type", pokemonControllers.searchByType);
 router.get("/pokemon/name/:name", pokemonControllers.searchByName);
 
-router.post("/pokemon", pokemonControllers.add);
+router.post("/pokemon", uploadMiddleware.uploadFile, pokemonControllers.add);
 router.put("/pokemon/:id", pokemonControllers.edit);
 router.delete("/pokemon/:id", pokemonControllers.destroy);
 
@@ -30,5 +32,11 @@ router.post(
 router.put("/users/:id", auth.hashPassword, userControllers.updateUser);
 
 router.post("/login", auth.checkEmailIfExist, authServices.verifyPassword);
+
+router.post(
+  "/test",
+  uploadMiddleware.uploadFile,
+  pokemonControllers.checkUpload
+);
 
 module.exports = router;

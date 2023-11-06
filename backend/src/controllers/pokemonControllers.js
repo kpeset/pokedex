@@ -52,9 +52,10 @@ const searchByName = (req, res) => {
 
 const add = (req, res) => {
   const pokemon = req.body;
+  const picture = req.file.filename;
 
   models.pokemon
-    .insert(pokemon)
+    .insert(pokemon, picture)
     .then(([result]) => {
       console.info(result);
       res.status(200).send("Le pokemon a bien été ajouté");
@@ -95,6 +96,10 @@ const destroy = (req, res) => {
   });
 };
 
+const checkUpload = (req, res) => {
+  res.status(200).send("fichier téléchargé");
+};
+
 module.exports = {
   browse,
   read,
@@ -103,4 +108,5 @@ module.exports = {
   add,
   edit,
   destroy,
+  checkUpload,
 };

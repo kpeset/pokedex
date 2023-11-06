@@ -15,10 +15,10 @@ class PokemonManager extends AbstractManager {
     ]);
   }
 
-  insert(pokemon) {
+  insert(pokemon, picture) {
     return this.database.query(
       `INSERT INTO pokemon (name, type, weight, image) VALUES (?, ?, ?, ?)`,
-      [pokemon.name, pokemon.type, pokemon.weight, pokemon.image]
+      [pokemon.name, pokemon.type, pokemon.weight, picture]
     );
   }
 

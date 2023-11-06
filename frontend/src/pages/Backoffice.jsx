@@ -16,14 +16,17 @@ export default function Backoffice() {
       });
   };
 
-  const addPokemon = () => {
+  const addPokemon = (event) => {
+    const formData = new FormData();
+
+    formData.append("name", name);
+    formData.append("type", type);
+    formData.append("weight", weight);
+    formData.append("image", image);
+
+    event.preventDefault();
     axios
-      .post(`${import.meta.env.VITE_BACKEND_URL}/pokemon`, {
-        name,
-        type,
-        weight,
-        image,
-      })
+      .post(`${import.meta.env.VITE_BACKEND_URL}/pokemon`, formData)
       .then((response) => {
         console.info(response);
       });
@@ -69,9 +72,8 @@ export default function Backoffice() {
         />
         <label htmlFor="image">Image du pokemon</label>
         <input
-          type="text"
-          value={image}
-          onChange={(event) => setImage(event.target.value)}
+          type="file"
+          onChange={(event) => setImage(event.target.files[0])}
         />
         <input type="submit" value="Ajouter" />
       </form>
