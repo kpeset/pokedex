@@ -48,6 +48,7 @@ Voici le détail de chacune des branches :
 - **step_07** : [**Express - Création de nos premiers middlewares**](https://github.com/kpeset/pokedex/tree/step_07)
 - **step_08** : [**Express - Register avec Argon2 et Joi**](https://github.com/kpeset/pokedex/tree/step_08)
 - **step_09** : [**React - Formulaire de register**](https://github.com/kpeset/pokedex/tree/step_09)
+- **step_10** : [**Express - Login avec JWT et Cookie-parser **](https://github.com/kpeset/pokedex/tree/step_10)
 
 
 ## Fonctionnalités actuelles
