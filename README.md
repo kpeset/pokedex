@@ -136,3 +136,27 @@ setSelectedPokemon({
                   weight: event.target.value,
                 })
 ```
+
+## Envoyer les changements à la BDD 
+
+Maintenant que nos states contiennent les nouvelles informations de notre pokemon, nous pouvons utiliser `axios` :
+
+```
+  const updatePokemon = (id) => {
+    axios
+      .put(`http://localhost:5000/pokemon/${id}`, {
+        name: selectedPokemon.name,
+        type: selectedPokemon.type,
+        weight: selectedPokemon.weight,
+        image: selectedPokemon.image,
+      })
+      .then((response) => {
+        console.info(response);
+      });
+  };
+```
+
+La fonction `axios.put` prend deux paramètres : le lien et ce qu'il y aura dans le `req.body`.
+
+## Rappel sur les useEffect
+
