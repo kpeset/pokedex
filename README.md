@@ -128,3 +128,11 @@ Puis nous utilisons ces données pour remplir les différents `input text` du fo
             />
 ```
 
+**RAPPEL :** Cette syntaxe nous permet de mettre à jour dynamiquement notre objet sans écraser les autres propriété de l'objet :
+
+```
+setSelectedPokemon({
+                  ...selectedPokemon,
+                  weight: event.target.value,
+                })
+```
