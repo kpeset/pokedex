@@ -1,36 +1,35 @@
-# Express : Pokedex
+# Express - Introduction aux Middlewares
 
 ## Objectif de l'atelier
 
-Nous utiliserons cet atelier "fil rouge" lors de nos groupe support. C'est sur cette applications que nous testerons les fonctionnalités Express que l'on va apprendre lors de notre projet 3.
-Il s'agit d'un atelier fullstack avec d'un côté le backend et de l'autre le frontend, basé sur le template de la Wild.
+Dans cet atelier, nous allons créer nos premiers middlewares. Ils seront peu utiles. Il s'agit d'une simple introduction sans intéragir avec une quelconque BDD.
 
-## Utilisation
+## Explication du code
 
-Chaque fois que nous allons coder une feature, nous allons créer une branche spécifique.
-De cette façon, vous pourrez aller de branches en branches pour voir le code que l'on a crée et aussi l'analyser.
-Je vous invite aussi à lire le Readme de chaque branche.
+### Vérification basique email/password
 
-## Prérequis
-
-Pour les utilisatrices de windows **UNIQUEMENT**, vous denez saisir ces commandes dans le terminal de votre VS CODE :
+Nous allons réunir tous nos middlewares dans un dossiers `middlewares`. C'est dans ce dossier que nous allons créer plusieurs fichiers (middleware d'authentification etc...).
+Donc nous allons créer un premier middleware qui vérifie si un email et un password sont valides pour passer à l'étape suivante :
 
 ```
-git config --global core.eol lf
-git config --global core.autocrlf false
+const checkIfGoodUser = (req, res, next) => {
+  const { email, password } = req.query;
+
+  if (email === "admin@gmail.com" && password === "secret") {
+    next();
+  } else {
+    res
+      .status(403)
+      .send(`Désolé ! Vous n'êtes pas autorisé à accéder à cette route...`);
+  }
+};
 ```
 
-## Installation
+Ce middleware est une simple condition. Il vérifie si l'émail et le password qui sont dans le `req.query` sont les même qui sont dans la condition.
+Si c'est bon, alors nous exécutons la suite de notre route via `next()` sinon on arrête tout en envoyant un `status(403)`. Voici un exemple de route :
 
-Pour installer ce repo, il vous suffit de cloner ce repository sur votre ordinateur et de faire `npm install` afin d'installer les dépendances.
+```
+router.get("/pokemon", checkIfGoodUser, pokemonControllers.browse);
+```
 
-**ATTENTION :** Pour executer le server backend, vous devez créer et configurer le fichier `.env` dans votre dossier `backend/`. Vous pouvez vous référer à l'exemple situé dans `backend/.env.sample`.
-
-### Commandes disponibles
-
-- `migrate` : Execute la migration de la base de données
-- `dev` : Démarre les deux servers (front et back)
-- `dev-front` : Démarre uniquement le server react
-- `dev-back` : Démarre uniquement le server backend
-- `lint` : Exécute les outils de validation de code
-- `fix` : Répare les erreurs de linter
+Si l'émail et le passwords sont incorrects alors la route n'atteindra jamais le controller pokemon.
