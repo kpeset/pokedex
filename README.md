@@ -1,36 +1,97 @@
-# Express : Pokedex
+React - Création du backoffice pour ajouter et supprimer un pokemon de la BDD côté Frontend
 
 ## Objectif de l'atelier
 
-Nous utiliserons cet atelier "fil rouge" lors de nos groupe support. C'est sur cette applications que nous testerons les fonctionnalités Express que l'on va apprendre lors de notre projet 3.
-Il s'agit d'un atelier fullstack avec d'un côté le backend et de l'autre le frontend, basé sur le template de la Wild.
+Dans cet atelier, nous allons faire une page côté React pour modifier un pokemon de notre BDD.
 
-## Utilisation
+## Explication du code
 
-Chaque fois que nous allons coder une feature, nous allons créer une branche spécifique.
-De cette façon, vous pourrez aller de branches en branches pour voir le code que l'on a crée et aussi l'analyser.
-Je vous invite aussi à lire le Readme de chaque branche.
+### Préambule
 
-## Prérequis
+Ici nous allons utiliser `axios` pour faire toutes nos requêtes.
+Nous aurons aussi besoin d'utiliser les deux hooks de React : `useState` et `useEffect`
 
-Pour les utilisatrices de windows **UNIQUEMENT**, vous denez saisir ces commandes dans le terminal de votre VS CODE :
+### Création du formulaire
+
+La création du formulaire se révèle être un peu plus complexe que le formulaire pour créer un pokemon. Il existe autant de façon de faire qu'il y a de codeurs et codeuses. Voici comment nous, nous avons procédés :
 
 ```
-git config --global core.eol lf
-git config --global core.autocrlf false
+     <div className="update_pokemon_panel">
+      <h1>Update Pokemon</h1>
+      <select
+        onChange={(event) => setSelectedValue(event.target.value)}
+        value={selectedValue}
+      >
+        <option value="">Sélectionne un pokemon</option>
+        {pokemonList.map((pokemon) => (
+          <option key={pokemon.id} value={pokemon.id}>
+            {pokemon.id} - {pokemon.name}
+          </option>
+        ))}
+      </select>
+      <div>
+        {selectedPokemon && (
+          <form onSubmit={() => updatePokemon(selectedPokemon.id)}>
+            <input
+              type="text"
+              placeholder={selectedPokemon.name}
+              value={selectedPokemon.name}
+              onChange={(event) =>
+                setSelectedPokemon({
+                  ...selectedPokemon,
+                  name: event.target.value,
+                })
+              }
+            />
+            <input
+              type="text"
+              placeholder={selectedPokemon.type}
+              value={selectedPokemon.type}
+              onChange={(event) =>
+                setSelectedPokemon({
+                  ...selectedPokemon,
+                  type: event.target.value,
+                })
+              }
+            />
+            <input
+              type="text"
+              placeholder={selectedPokemon.weight}
+              value={selectedPokemon.weight}
+              onChange={(event) =>
+                setSelectedPokemon({
+                  ...selectedPokemon,
+                  weight: event.target.value,
+                })
+              }
+            />
+            <input
+              type="text"
+              placeholder={selectedPokemon.image}
+              value={selectedPokemon.image}
+              onChange={(event) =>
+                setSelectedPokemon({
+                  ...selectedPokemon,
+                  image: event.target.value,
+                })
+              }
+            />
+            <input type="submit" value="Enregistrer" />
+          </form>
+        )}
+      </div>
+    </div>
 ```
 
-## Installation
+La première partie de ce formulaire est une balise `select` qui contient autant d'`options` qu'il existe de pokemon. Rappelez-vous du checkpoint 2 lorsque nous avons utilisé la méthode `map` de la même façon !
 
-Pour installer ce repo, il vous suffit de cloner ce repository sur votre ordinateur et de faire `npm install` afin d'installer les dépendances.
+Quand nous choisissons une options, alors le `select` va subir un changement. Et c'est à ce moment là que nous stockons la valeur de l'option (qui est l'id du pokemon `<option key={pokemon.id} value={pokemon.id}>`) dans le state `selectedValue`. La `value` finale de notre `select` sera alors `selectedValue` :
 
-**ATTENTION :** Pour executer le server backend, vous devez créer et configurer le fichier `.env` dans votre dossier `backend/`. Vous pouvez vous référer à l'exemple situé dans `backend/.env.sample`.
+```
+      <select
+        onChange={(event) => setSelectedValue(event.target.value)}
+        value={selectedValue}
+      >
+```
 
-### Commandes disponibles
 
-- `migrate` : Execute la migration de la base de données
-- `dev` : Démarre les deux servers (front et back)
-- `dev-front` : Démarre uniquement le server react
-- `dev-back` : Démarre uniquement le server backend
-- `lint` : Exécute les outils de validation de code
-- `fix` : Répare les erreurs de linter
