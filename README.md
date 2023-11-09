@@ -1,36 +1,118 @@
-# Express : Pokedex
+# React - Création du backoffice pour ajouter et supprimer un pokemon de la BDD côté Frontend
 
 ## Objectif de l'atelier
 
-Nous utiliserons cet atelier "fil rouge" lors de nos groupe support. C'est sur cette applications que nous testerons les fonctionnalités Express que l'on va apprendre lors de notre projet 3.
-Il s'agit d'un atelier fullstack avec d'un côté le backend et de l'autre le frontend, basé sur le template de la Wild.
+Dans cet atelier, nous allons faire une page côté React pour ajouter et supprimer un pokemon de notre BDD.
 
-## Utilisation
+## Explication du code
 
-Chaque fois que nous allons coder une feature, nous allons créer une branche spécifique.
-De cette façon, vous pourrez aller de branches en branches pour voir le code que l'on a crée et aussi l'analyser.
-Je vous invite aussi à lire le Readme de chaque branche.
+### Préambule
 
-## Prérequis
+Ici nous allons utiliser `axios` pour faire toutes nos requêtes.
+Nous aurons aussi besoin d'utiliser les deux hooks de React : `useState` et `useEffect`
 
-Pour les utilisatrices de windows **UNIQUEMENT**, vous denez saisir ces commandes dans le terminal de votre VS CODE :
+### Création du formulaire
+
+La création du formulaire est plutôt simple :
 
 ```
-git config --global core.eol lf
-git config --global core.autocrlf false
+      <form onSubmit={addPokemon}>
+        <label htmlFor="name">Nom du pokemon</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+        />
+        <label htmlFor="type">Type du pokemon</label>
+        <input
+          type="text"
+          value={type}
+          onChange={(event) => setType(event.target.value)}
+        />
+        <label htmlFor="weight">Poids du pokemon</label>
+        <input
+          type="text"
+          value={weight}
+          onChange={(event) => setWeight(event.target.value)}
+        />
+        <label htmlFor="image">Image du pokemon</label>
+        <input
+          type="text"
+          value={image}
+          onChange={(event) => setImage(event.target.value)}
+        />
+        <input type="submit" value="Ajouter" />
+      </form>
 ```
 
-## Installation
+Nous avons ici quatre `input text`. A chaque changement que subissent les inputs, nous allons changer le state auquel l'input est lié :
 
-Pour installer ce repo, il vous suffit de cloner ce repository sur votre ordinateur et de faire `npm install` afin d'installer les dépendances.
+```
+onChange={(event) => setName(event.target.value)}
+```
 
-**ATTENTION :** Pour executer le server backend, vous devez créer et configurer le fichier `.env` dans votre dossier `backend/`. Vous pouvez vous référer à l'exemple situé dans `backend/.env.sample`.
+Ces changements seront stockés dans ces states :
 
-### Commandes disponibles
+```
+  const [name, setName] = useState("");
+  const [type, setType] = useState("");
+  const [weight, setWeight] = useState("");
+  const [image, setImage] = useState("");
+```
 
-- `migrate` : Execute la migration de la base de données
-- `dev` : Démarre les deux servers (front et back)
-- `dev-front` : Démarre uniquement le server react
-- `dev-back` : Démarre uniquement le server backend
-- `lint` : Exécute les outils de validation de code
-- `fix` : Répare les erreurs de linter
+Et lorsque nous voulons soummettre ces données à notre back, nous allons utiliser `axios` :
+
+```
+  const addPokemon = () => {
+    axios
+      .post(`http://localhost:5000/pokemon`, {
+        name,
+        type,
+        weight,
+        image,
+      })
+      .then((response) => {
+        console.info(response);
+      });
+    getPokemonList();
+  };
+```
+
+Exécuter la fonction `getPokemonList()` à la fin de la requête pour ajouter un pokemon, permet de raffraichir la liste des pokemons :
+
+```
+  const getPokemonList = () => {
+    axios.get(`http://localhost:5000/pokemon`).then((response) => {
+      setPokemonList(response.data);
+    });
+  };
+```
+
+La liste des pokemons est affichée de la façon suivante dans le `return` :
+
+```
+<ul>
+        {pokemonList.map((pokemon) => (
+          <li key={pokemon.id}>
+            <p>
+              {pokemon.id} - {pokemon.name}
+            </p>
+            <button type="button" onClick={() => deletePokemon(pokemon.id)}>
+              Supprimer
+            </button>
+          </li>
+        ))}
+</ul>
+```
+
+Nous utilisons la méthode de tableau `map` pour ajouter un `li` qui affichera le nom du pokemon ainsi que le bouton **supprimer**, autant de fois qu'il y a de pokemon dans le state `pokemonList`.
+Puis nous exécuterons la fonction `deletePokemon` qui aura l'id du pokemon en paramètre, lorsque nous voudrons supprimer un pokemon :
+
+```
+  const deletePokemon = (id) => {
+    axios.delete(`http://localhost:5000/pokemon/${id}`).then((response) => {
+      console.info(response);
+    });
+    getPokemonList();
+  };
+```
