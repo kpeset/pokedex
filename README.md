@@ -46,6 +46,8 @@ Voici le détail de chacune des branches :
 - **step_05** : [**React - Création du backoffice pour ajouter et supprimer un pokemon de la BDD côté Frontend**](https://github.com/kpeset/pokedex/tree/step_05)
 - **step_06** : [**React - Ajout au backoffice d'une page pour modifier un pokemon de la BDD côté Frontend**](https://github.com/kpeset/pokedex/tree/step_06)
 - **step_07** : [**Express - Création de nos premiers middlewares**](https://github.com/kpeset/pokedex/tree/step_07)
+- **step_08** : [**Express - Register avec Argon2 et Joi**](https://github.com/kpeset/pokedex/tree/step_08)
+- **step_09** : [**React - Formulaire de register**](https://github.com/kpeset/pokedex/tree/step_09)
 
 
 ## Fonctionnalités actuelles
