@@ -112,10 +112,19 @@ const checkIfIsAllowed = (req, res, next) => {
   }
 };
 
+const checkIfAdmin = (req, res, next) => {
+  if (req.user.role !== "admin") {
+    res.status(500).send("Tu n'es pas admin");
+  } else {
+    next();
+  }
+};
+
 module.exports = {
   checkIfGoodUser,
   hashPassword,
   validateUser,
   checkEmailIfExist,
   checkIfIsAllowed,
+  checkIfAdmin,
 };

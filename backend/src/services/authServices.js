@@ -9,6 +9,7 @@ const verifyPassword = (req, res) => {
         const payload = {
           sub: req.user.id,
           email: req.user.email,
+          role: req.user.role,
         };
 
         const token = jwt.sign(payload, process.env.JWT_SECRET, {

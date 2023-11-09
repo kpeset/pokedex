@@ -13,7 +13,12 @@ const uploadMiddleware = require("./middlewares/upload");
 
 const auth = require("./middlewares/auth");
 
-router.get("/pokemon", auth.checkIfIsAllowed, pokemonControllers.browse);
+router.get(
+  "/pokemon",
+  auth.checkIfIsAllowed,
+  auth.checkIfAdmin,
+  pokemonControllers.browse
+);
 router.get("/pokemon/:id", openingHours, pokemonControllers.read);
 router.get("/pokemon/type/:type", pokemonControllers.searchByType);
 router.get("/pokemon/name/:name", pokemonControllers.searchByName);

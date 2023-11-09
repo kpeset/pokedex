@@ -38,6 +38,7 @@ export default function Login() {
       )
       .then((response) => {
         console.info(response);
+        localStorage.setItem("role", response.data.role);
         setError(false);
         navigateToHomepage();
       })

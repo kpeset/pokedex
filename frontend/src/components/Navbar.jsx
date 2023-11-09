@@ -14,9 +14,14 @@ export default function Navbar() {
         <li>
           <Link to="/pokedex">Pokedex</Link>
         </li>
-        <li>
-          <Link to="/backoffice">Backoffice</Link>
-        </li>
+        {localStorage.getItem("role") === "admin" ? (
+          <li>
+            <Link to="/backoffice">Backoffice</Link>
+          </li>
+        ) : (
+          ""
+        )}
+
         <li>
           <Link to="/updatePokemon">UpdatePokemon</Link>
         </li>
