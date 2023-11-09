@@ -2,35 +2,89 @@
 
 ## Objectif de l'atelier
 
-Nous utiliserons cet atelier "fil rouge" lors de nos groupe support. C'est sur cette applications que nous testerons les fonctionnalités Express que l'on va apprendre lors de notre projet 3.
-Il s'agit d'un atelier fullstack avec d'un côté le backend et de l'autre le frontend, basé sur le template de la Wild.
+Dans cet atelier, nous allon continuer notre CRUD, en faisant des fonctions capables de créer, éditer et supprimer un pokemon.
 
-## Utilisation
+## Explication du code
 
-Chaque fois que nous allons coder une feature, nous allons créer une branche spécifique.
-De cette façon, vous pourrez aller de branches en branches pour voir le code que l'on a crée et aussi l'analyser.
-Je vous invite aussi à lire le Readme de chaque branche.
+### Préambule
 
-## Prérequis
+### Création des requêtes mySQL
 
-Pour les utilisatrices de windows **UNIQUEMENT**, vous denez saisir ces commandes dans le terminal de votre VS CODE :
-
+Pour créer de la data en mSQL, nous devons utiliser `INSERT INTO` sur notre table `pokemon` de la façon suivante :
 ```
-git config --global core.eol lf
-git config --global core.autocrlf false
+INSERT INTO pokemon (name, type, weight, image) VALUES ("Pikachu", "electrique", 12, "lien de l'image")
 ```
 
-## Installation
+Mais ça c'est la façon manuelle de le faire. Nous voulons exécuter cette commande de façon dynamique sur notre back. Nous allons donc mettre notre logique dans un model.
+Quel modèle s'occupe de nos requêtes concernant les pokemon ? Réponse : `pokemonManager`. Nous allons nous concentrer sur comment créer un pokemon. La logique pour update/supprimer un pokemon est sensiblement la même.
 
-Pour installer ce repo, il vous suffit de cloner ce repository sur votre ordinateur et de faire `npm install` afin d'installer les dépendances.
+```
+  insert(pokemon) {
+    return this.database.query(
+      `INSERT INTO pokemon (name, type, weight, image) VALUES (?, ?, ?, ?)`,
+      [pokemon.name, pokemon.type, pokemon.weight, pokemon.image]
+    );
+  }
+```
 
-**ATTENTION :** Pour executer le server backend, vous devez créer et configurer le fichier `.env` dans votre dossier `backend/`. Vous pouvez vous référer à l'exemple situé dans `backend/.env.sample`.
+Ici nous avons crée une fonction `insert` qui prend en paramêtre `pokemon`. Ce `pokemon` sont les informations que l'on va avoir dans notre body et qu'on a crée dans notre controller :
 
-### Commandes disponibles
+```
+const pokemon = req.body;
+```
 
-- `migrate` : Execute la migration de la base de données
-- `dev` : Démarre les deux servers (front et back)
-- `dev-front` : Démarre uniquement le server react
-- `dev-back` : Démarre uniquement le server backend
-- `lint` : Exécute les outils de validation de code
-- `fix` : Répare les erreurs de linter
+Revenons à notre fonction `insert` :
+
+```
+  insert(pokemon) {
+    return this.database.query(
+      `INSERT INTO pokemon (name, type, weight, image) VALUES (?, ?, ?, ?)`,
+      [pokemon.name, pokemon.type, pokemon.weight, pokemon.image]
+    );
+  }
+```
+
+Notre `pokemon` est un objet qui pour être crée a besoin d'un nom, type, poids et image. Nous allons insérer des `VALUES` de façon dynamiques :
+
+```
+ VALUES (?, ?, ?, ?)
+```
+
+Les `?` seront remplacés dans l'ordre par les éléments qui sont dans le tableau qui suit la requête :
+
+```
+ [pokemon.name, pokemon.type, pokemon.weight, pokemon.image]
+```
+
+### Création du controller pour créer un pokemon
+Pour créer un pokemon, nous avons crée la fonction suivante dans notre controller :
+
+```
+const add = (req, res) => {
+  const pokemon = req.body;
+
+  models.pokemon
+    .insert(pokemon)
+    .then(([result]) => {
+      console.info(result);
+      res.status(200).send("Le pokemon a bien été ajouté");
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Erreur de sauvegarde");
+    });
+};
+```
+
+- `models.pokemon` signifie que nous allons utiliser le model **pokemon**
+- `.insert` est la fonction que nous acons crée précédement dans notre `pokemonManager`. Fonction qui prend en paramètre `pokemon`, informations que nous allons récupérer depuis le `req.body`.
+
+### Création des routes
+
+Maintenant que notre controller et notre model sont prêts, nous allons pouvoir créer nos routes dans le fichier `router.js`:
+
+```
+router.post("/pokemon", pokemonControllers.add);
+```
+
+Nous commençons par importer nos controllers. Puis dans nos routes, nous dirons d'utiliser telle ou telle méthode qui se trouve dans le controller.
