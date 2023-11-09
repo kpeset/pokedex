@@ -1,4 +1,4 @@
-# React - Création du backoffice pour ajouter et supprimer un pokemon de la BDD côté Frontend #
+# React - Ajout au backoffice d'une page pour modifier un pokemon de la BDD côté Frontend #
 
 ## Objectif de l'atelier
 
