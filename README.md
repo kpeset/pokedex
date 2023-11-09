@@ -1,4 +1,4 @@
-# Express : Pokedex
+# Express - Création des routes POST, PUT, DELETE pour ajouter, modifier et supprimer un pokemon
 
 ## Objectif de l'atelier
 
