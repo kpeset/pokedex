@@ -160,3 +160,22 @@ La fonction `axios.put` prend deux paramètres : le lien et ce qu'il y aura dans
 
 ## Rappel sur les useEffect
 
+Nous avons utilisé sur cette page trois fois le useEffect :
+
+```
+  useEffect(() => {
+    getPokemonList();
+  }, []);
+
+  useEffect(() => {
+    getOnePokemon(selectedValue);
+  }, [selectedValue]);
+
+  useEffect(() => {
+    console.info(selectedPokemon);
+  }, [selectedPokemon]);
+```
+
+Le premier sert à récupérer tous les pokemons de la bdd lorsque nous montons le composant.
+Le second permet d'avoir les informations d'un pokemon selon son id. Il s'execute lorsque la valeur de `selectedValue` change.
+Le troisième fait juste un `console.info` de `selectedPokemon` lorsque la valeur de celui-ci change !
