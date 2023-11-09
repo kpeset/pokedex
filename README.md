@@ -94,4 +94,37 @@ Quand nous choisissons une options, alors le `select` va subir un changement. Et
       >
 ```
 
+Nous allons ensuite récupérer les datas du pokemon sélectionné :
+
+```
+const getOnePokemon = (id) => {
+    axios.get(`http://localhost:5000/pokemon/${id}`).then((response) => {
+      setSelectedPokemon({
+        id: response.data.id || null,
+        name: response.data.name || "",
+        type: response.data.type || "",
+        weight: response.data.weight || "",
+        image: response.data.image || "",
+      });
+    });
+  };
+```
+
+Les deux valeurs possibles lorsque nous allons stocker la data reçue dans `selectedPokemon` seront la data ou alors une string vide ou null afin d'éviter les bugs au montage du composant.
+
+Puis nous utilisons ces données pour remplir les différents `input text` du formulaire. Exemple :
+
+```
+  <input
+              type="text"
+              placeholder={selectedPokemon.weight}
+              value={selectedPokemon.weight}
+              onChange={(event) =>
+                setSelectedPokemon({
+                  ...selectedPokemon,
+                  weight: event.target.value,
+                })
+              }
+            />
+```
 
