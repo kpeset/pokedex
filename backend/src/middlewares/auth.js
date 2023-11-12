@@ -26,13 +26,7 @@ const hashPassword = (req, res, next) => {
   argon2
     .hash(req.body.password, hashingOptions)
     .then((hashedPassword) => {
-      console.info("Mot de passe du body :", req.body.password);
-      console.info("Résultat de hashedPassword : ", hashedPassword);
       req.body.hashedPassword = hashedPassword;
-      console.info(
-        "Resultat de mon req.body.hashedPassword :",
-        req.body.hashedPassword
-      );
       delete req.body.password;
       next();
     })
@@ -68,7 +62,6 @@ const checkEmailIfExist = (req, res, next) => {
         role: "user",
         hashedPassword: user[0].hashedPassword,
       };
-      console.info("req.user : ", req.user);
       next();
     } else {
       models.admin.searchByEmail(email).then(([admin]) => {
@@ -82,7 +75,6 @@ const checkEmailIfExist = (req, res, next) => {
             hashedPassword: admin[0].hashedPassword,
           };
 
-          console.info(req.user);
           next();
         } else {
           res.sendStatus(401);
@@ -95,7 +87,6 @@ const checkEmailIfExist = (req, res, next) => {
 const checkIfIsAllowed = (req, res, next) => {
   try {
     const { authToken } = req.cookies;
-    console.info("token de checkIfIsAllowed: ", authToken);
 
     if (!authToken) {
       return res.status(401).send("Désolé, mais c'est ciao !");
@@ -104,7 +95,6 @@ const checkIfIsAllowed = (req, res, next) => {
     const payload = jwt.verify(authToken, process.env.JWT_SECRET);
 
     req.user = payload;
-    console.info(payload);
 
     return next();
   } catch {

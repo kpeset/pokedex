@@ -10,7 +10,9 @@ export default function Backoffice() {
 
   const getPokemonList = () => {
     axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/pokemon`)
+      .get(`${import.meta.env.VITE_BACKEND_URL}/pokemon`, {
+        withCredentials: true,
+      })
       .then((response) => {
         setPokemonList(response.data);
       });

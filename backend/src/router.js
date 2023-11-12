@@ -5,8 +5,6 @@ const router = express.Router();
 const pokemonControllers = require("./controllers/pokemonControllers");
 const userControllers = require("./controllers/userControllers");
 
-const openingHours = require("./middlewares/openingHours");
-
 const authServices = require("./services/authServices");
 
 const uploadMiddleware = require("./middlewares/upload");
@@ -19,7 +17,7 @@ router.get(
   auth.checkIfAdmin,
   pokemonControllers.browse
 );
-router.get("/pokemon/:id", openingHours, pokemonControllers.read);
+router.get("/pokemon/:id", pokemonControllers.read);
 router.get("/pokemon/type/:type", pokemonControllers.searchByType);
 router.get("/pokemon/name/:name", pokemonControllers.searchByName);
 
