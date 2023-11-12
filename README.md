@@ -128,3 +128,20 @@ const hashPassword = (req, res, next) => {
 Nous allons utiliser la méthode `hash` d'argon2. Cette méthode prend deux paramètres. Ce qu'il y a dans le `req.body.password` et les options de hashage.
 Si la réponse est positive, alors nous mettons ce nouveau password `hashedPassword` dans `req.body.hashedPassword` puis nous ferons un `next` qui nous dirigera vers la méthode `postUser` de notre controller.
 
+### Création de la route
+
+Nous allons maintenant créer la route :
+
+```
+router.post(
+  "/users",
+  auth.validateUser,
+  auth.hashPassword,
+  userControllers.postUser
+);
+```
+
+Lorsque nous utiliserons la méthode `post` sur la route `/users`, nous passerons par trois étapes :
+- Le middleware pour vérifier les champs
+- Le middlewaire pour hasher le password
+- Le controller `user` et sa méthode `postUser`
