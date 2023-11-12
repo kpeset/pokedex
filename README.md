@@ -1,36 +1,56 @@
-# Express : Pokedex
+# Express - Register avec Argon2 et Joi
 
 ## Objectif de l'atelier
 
-Nous utiliserons cet atelier "fil rouge" lors de nos groupe support. C'est sur cette applications que nous testerons les fonctionnalités Express que l'on va apprendre lors de notre projet 3.
-Il s'agit d'un atelier fullstack avec d'un côté le backend et de l'autre le frontend, basé sur le template de la Wild.
+Dans cet atelier, nous allons créer la logique de code afin de créer des utilisateurs. Nous allons utiliser deux packages :
 
-## Utilisation
+- Joi : Va permettre de vérifier que les différents champs correspondent au shéma que l'on va établir (un champ pour un email, un numéro de téléphone, etc...)
+- Argon2 : Argon2 va permettre de hasher le password afin qu'il n'apparaisse pas en clair dans la BDD.
 
-Chaque fois que nous allons coder une feature, nous allons créer une branche spécifique.
-De cette façon, vous pourrez aller de branches en branches pour voir le code que l'on a crée et aussi l'analyser.
-Je vous invite aussi à lire le Readme de chaque branche.
 
-## Prérequis
+## Explication du code
 
-Pour les utilisatrices de windows **UNIQUEMENT**, vous denez saisir ces commandes dans le terminal de votre VS CODE :
+### Création de la requête SQL
+
+Afin de créer un utilisateur, nous devons exécuter une requête SQL qui permettra d'ajouter un utilisateur à la table users. Pour cela nous allons entrer ce code dans notre model UserManager.js :
 
 ```
-git config --global core.eol lf
-git config --global core.autocrlf false
+  insert(email, hashedPassword) {
+    return this.database.query(
+      `INSERT INTO users (email, hashedPassword) VALUES (?, ?)`,
+      [email, hashedPassword]
+    );
+  }
 ```
 
-## Installation
+Ici nous avons crée la fonction `insert` qui prend en deux paramètres : email et hashedPassword.
 
-Pour installer ce repo, il vous suffit de cloner ce repository sur votre ordinateur et de faire `npm install` afin d'installer les dépendances.
+### Création du controller
 
-**ATTENTION :** Pour executer le server backend, vous devez créer et configurer le fichier `.env` dans votre dossier `backend/`. Vous pouvez vous référer à l'exemple situé dans `backend/.env.sample`.
+Nous allons créer la méthode `postUser` dans notre controller. N'oubliez pas de dire que `email` et `hashedPassword` vont provenir du `req.body` :
 
-### Commandes disponibles
+```
+const postUser = (req, res) => {
+  const { email, hashedPassword } = req.body;
 
-- `migrate` : Execute la migration de la base de données
-- `dev` : Démarre les deux servers (front et back)
-- `dev-front` : Démarre uniquement le server react
-- `dev-back` : Démarre uniquement le server backend
-- `lint` : Exécute les outils de validation de code
-- `fix` : Répare les erreurs de linter
+  models.user
+    .insert(email, hashedPassword)
+    .then(([result]) => {
+      console.info(result);
+      res
+        .status(200)
+        .json({ Message: "Utilisateur crée avec succès", Email: email });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({
+        Source: "controller",
+        Erreur: "Erreur lors de l'enregistrement de l'utilisateur",
+        Raison: err.sqlMessage,
+      });
+    });
+};
+```
+
+Le controller aura pour tâche uniquement d'intéragir avec le model. Nous aurions pu mettre la logique de hashage mais il est important de continuer à structurer nos fichiers.
+Toute la logique de hashage et de controle des données envoyées via Joi se feront dans un middleware. 
