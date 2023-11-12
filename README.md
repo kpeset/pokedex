@@ -86,3 +86,45 @@ const validateUser = (req, res, next) => {
 Nous allons utiliser la méthode `validate` sur notre `userSchema` et prendra en paramètre ce qu'il y a dans notre `req.body`.
 Si les champs sont sorrects, nous pourrons passer au middleware suivant. Ce middleware s'occupera de hasher le password.
 
+### Création du middleware de hashage de password
+
+Pour hasher notre password, nous allons créer un middleware `hashPassword` et utiliser argon2
+
+La première étape est de paramétrer l'algorithme de hashage. Pour cela nous allons mettre des options dans un objet `hashingOptions`. J'insiste sur le fait que cet algorithme est celui qui provient de la documentation. Je n'ai absolument rien inventé :
+
+```
+const hashingOptions = {
+  type: argon2.argon2id,
+  memoryCost: 2 ** 16,
+  timeCost: 5,
+  parallelism: 1,
+};
+```
+
+Puis ensuite nous pouvons créer notre middleware `hashPassword` :
+
+```
+const hashPassword = (req, res, next) => {
+  argon2
+    .hash(req.body.password, hashingOptions)
+    .then((hashedPassword) => {
+      console.info("Mot de passe du body :", req.body.password);
+      console.info("Résultat de hashedPassword : ", hashedPassword);
+      req.body.hashedPassword = hashedPassword;
+      console.info(
+        "Resultat de mon req.body.hashedPassword :",
+        req.body.hashedPassword
+      );
+      delete req.body.password;
+      next();
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+```
+
+Nous allons utiliser la méthode `hash` d'argon2. Cette méthode prend deux paramètres. Ce qu'il y a dans le `req.body.password` et les options de hashage.
+Si la réponse est positive, alors nous mettons ce nouveau password `hashedPassword` dans `req.body.hashedPassword` puis nous ferons un `next` qui nous dirigera vers la méthode `postUser` de notre controller.
+
