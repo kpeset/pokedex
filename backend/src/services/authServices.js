@@ -28,4 +28,8 @@ const verifyPassword = (req, res) => {
     });
 };
 
-module.exports = { verifyPassword };
+const allowAccess = (req, res) => {
+  res.status(200).json("Accès autorisé");
+};
+
+module.exports = { verifyPassword, allowAccess };
