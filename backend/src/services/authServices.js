@@ -21,6 +21,7 @@ const verifyPassword = (req, res) => {
         res.status(200).json({
           message: "Connexion réussie",
           role: req.user.role,
+          email: req.user.email,
         });
       } else {
         res.sendStatus(401);

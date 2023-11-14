@@ -28,7 +28,9 @@ export default function Backoffice() {
 
     event.preventDefault();
     axios
-      .post(`${import.meta.env.VITE_BACKEND_URL}/pokemon`, formData)
+      .post(`${import.meta.env.VITE_BACKEND_URL}/pokemon`, formData, {
+        withCredentials: true,
+      })
       .then((response) => {
         console.info(response);
       });
@@ -37,7 +39,9 @@ export default function Backoffice() {
 
   const deletePokemon = (id) => {
     axios
-      .delete(`${import.meta.env.VITE_BACKEND_URL}/pokemon/${id}`)
+      .delete(`${import.meta.env.VITE_BACKEND_URL}/pokemon/${id}`, {
+        withCredentials: true,
+      })
       .then((response) => {
         console.info(response);
       });

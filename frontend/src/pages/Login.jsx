@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
@@ -8,10 +7,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
-  const navigate = useNavigate();
-
   const navigateToHomepage = () => {
-    navigate("/pokedex");
+    window.location.href = "/";
   };
 
   const handleChangeEmail = (event) => {
@@ -39,6 +36,7 @@ export default function Login() {
       .then((response) => {
         console.info(response);
         localStorage.setItem("role", response.data.role);
+        localStorage.setItem("email", response.data.email);
         setError(false);
         navigateToHomepage();
       })
