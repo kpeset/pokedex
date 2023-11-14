@@ -65,4 +65,36 @@ Avant de faire la requête `axios`, nous vérifions que le state `password` est 
 
 ### Gestion des erreurs
 
-Afin d'a
+Afin d'améliorer l'expérience utilisateur nous avons mis en place un système de gestion des erreurs avec plusieurs conditions : 
+
+```
+ .catch((err) => {
+          if (
+            err.response.data.error === `"email" is not allowed to be empty`
+          ) {
+            setError("L'email ne peut pas être vide");
+          } else if (
+            err.response.data.error === `"email" must be a valid email`
+          ) {
+            setError("Mettre un email valide");
+          } else if (
+            err.response.data.error === `"password" is not allowed to be empty`
+          ) {
+            setError("Merci de donner un password");
+          } else if (
+            err.response.data.error ===
+            `"password" length must be at least 8 characters long`
+          ) {
+            setError("Le mot de passe doit faire au moins 8 caractères");
+          } else if (err.response.data.error === 1062) {
+            setError("L'email est déjà enregistré");
+          } else {
+            console.error(err.response.data.error);
+          }
+          setSucces(false);
+        });
+```
+
+Tous les messages d'erreurr situés dans les conditions proviennent du backend (générés par Joi ou Mysql selon l'erreur).
+La gestion des erreurs et des succès se gère via deux states `setSucces` et `setError` qui sont faux par défaut.
+Si il y a erreur alors `succes` reste à `false` et `error` devient `true`. Si il n'y a pas d'erreurs alors `error` passe à `false` et `succes` à `true`.
