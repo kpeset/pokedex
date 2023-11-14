@@ -1,36 +1,68 @@
-# Express : Pokedex
+# React - Formulaire de register
 
 ## Objectif de l'atelier
 
-Nous utiliserons cet atelier "fil rouge" lors de nos groupe support. C'est sur cette applications que nous testerons les fonctionnalités Express que l'on va apprendre lors de notre projet 3.
-Il s'agit d'un atelier fullstack avec d'un côté le backend et de l'autre le frontend, basé sur le template de la Wild.
+Dans cet atelier, nous allons créer la logique de code afin de créer des utilisateurs côté front. Nous aurons besoin de :
 
-## Utilisation
+- Le hook useState pour la gestion des states du formulaire
+- Axios pour faire la requête `post` vers le backend
 
-Chaque fois que nous allons coder une feature, nous allons créer une branche spécifique.
-De cette façon, vous pourrez aller de branches en branches pour voir le code que l'on a crée et aussi l'analyser.
-Je vous invite aussi à lire le Readme de chaque branche.
+## Explication du code
 
-## Prérequis
+### Création du formulaire
 
-Pour les utilisatrices de windows **UNIQUEMENT**, vous denez saisir ces commandes dans le terminal de votre VS CODE :
+Afin de créer un formulaire, l'utilisateur doit remplir trois champs :
+- email
+- password
+- vérification du password
+
+Ensuite l'email et le password seront envoyés au backend. Nous devons donc les stocker quelque part pour les envoyer. Nous allons comme à notre habitude utiliser `useState` :
 
 ```
-git config --global core.eol lf
-git config --global core.autocrlf false
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [checkedPassword, setCheckedPassword] = useState("");
 ```
 
-## Installation
+Ensuite nous allons créer notre `form` avec dedans nos trois `inputs` :
 
-Pour installer ce repo, il vous suffit de cloner ce repository sur votre ordinateur et de faire `npm install` afin d'installer les dépendances.
+```
+<input type="email" onChange={handleChangeEmail} />
+```
 
-**ATTENTION :** Pour executer le server backend, vous devez créer et configurer le fichier `.env` dans votre dossier `backend/`. Vous pouvez vous référer à l'exemple situé dans `backend/.env.sample`.
+Ici nous avons l'exemple pour le champ email. Lorsque l'on change sa valeur, nous executons la fonction `handleChangeEmail` :
 
-### Commandes disponibles
+```
+  const handleChangeEmail = (event) => {
+    setEmail(event.target.value);
+  };
+```
 
-- `migrate` : Execute la migration de la base de données
-- `dev` : Démarre les deux servers (front et back)
-- `dev-front` : Démarre uniquement le server react
-- `dev-back` : Démarre uniquement le server backend
-- `lint` : Exécute les outils de validation de code
-- `fix` : Répare les erreurs de linter
+Cette fonction va changer le state de `email`, et remplacer l'état initial par la valeur de la cible qui subit l'évenement.
+
+### Soumission du formulaire
+
+Notre formulaire va exécuter la fonction `sendRegisterData` lorsque celui-ci sera soumis :
+
+```
+const sendRegisterData = (event) => {
+    event.preventDefault();
+
+    if (password === checkedPassword) {
+      axios
+        .post("http://localhost:5000/users", {
+          email,
+          password,
+        })
+        .then((response) => {
+          setSucces(response.data.message);
+          setError(false);
+          console.info(response);
+        })
+```
+
+Avant de faire la requête `axios`, nous vérifions que le state `password` est bien égale à `checkedPassword`. Ensuite nous faisons la requête `post` avec dans le corps de formulaire un `email` et un `password`.
+
+### Gestion des erreurs
+
+Afin d'a
