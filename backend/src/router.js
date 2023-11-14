@@ -4,6 +4,7 @@ const router = express.Router();
 
 const pokemonControllers = require("./controllers/pokemonControllers");
 const userControllers = require("./controllers/userControllers");
+const messageControllers = require("./controllers/messageControllers");
 
 const authServices = require("./services/authServices");
 
@@ -53,5 +54,14 @@ router.post(
 );
 
 router.post("/login", auth.checkEmailIfExist, authServices.verifyPassword);
+
+router.post("/send-message", messageControllers.sendMessageBetweenUsers);
+
+router.get("/messages/:userId", messageControllers.listUserMessage);
+
+router.get(
+  "/messages/sender/:senderId/receiver/:receiverId",
+  messageControllers.listMessagesBetweenUsers
+);
 
 module.exports = router;

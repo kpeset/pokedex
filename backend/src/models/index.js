@@ -44,6 +44,11 @@ const AdminManager = require("./AdminManager");
 models.admin = new AdminManager();
 models.admin.setDatabase(pool);
 
+const MessageManager = require("./MessageManager");
+
+models.message = new MessageManager();
+models.message.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
