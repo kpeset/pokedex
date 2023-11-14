@@ -52,7 +52,7 @@ Voici le détail de chacune des branches :
 - **step_11** : [**React - Formulaire de connexion**](https://github.com/kpeset/pokedex/tree/step_11)
 - **step_12** : [**Express - Les rôles : partie 1**](https://github.com/kpeset/pokedex/tree/step_12)
 - **step_13** : [**Express / React - Uploader un fichier**](https://github.com/kpeset/pokedex/tree/step_13)
-- **step_14** : [**Express / React - Les rôles : partie 2**](https://github.com/kpeset/pokedex/tree/step_13)
+- **step_14** : [**Express / React - Les rôles : partie 2 (useContext, Private Routes)**](https://github.com/kpeset/pokedex/tree/step_13)
 
 
 ## Fonctionnalités actuelles
