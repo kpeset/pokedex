@@ -36,10 +36,10 @@ const listUserMessage = (req, res) => {
 };
 
 const listMessagesBetweenUsers = (req, res) => {
-  const { senderId, receiverId } = req.params;
+  const { userId, receiverId } = req.params;
 
   models.message
-    .listMessages(senderId, receiverId)
+    .listMessages(userId, receiverId)
     .then(([result]) => {
       res.status(200).json({ result });
     })

@@ -10,6 +10,7 @@ const verifyPassword = (req, res) => {
           sub: req.user.id,
           email: req.user.email,
           role: req.user.role,
+          id: req.user.id,
         };
 
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
@@ -22,6 +23,7 @@ const verifyPassword = (req, res) => {
           message: "Connexion réussie",
           role: req.user.role,
           email: req.user.email,
+          id: req.user.id,
         });
       } else {
         res.sendStatus(401);

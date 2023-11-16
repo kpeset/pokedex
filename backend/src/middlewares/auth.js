@@ -61,6 +61,7 @@ const checkEmailIfExist = (req, res, next) => {
         email: user[0].email,
         role: "user",
         hashedPassword: user[0].hashedPassword,
+        id: user[0].id,
       };
       next();
     } else {

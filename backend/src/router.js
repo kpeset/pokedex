@@ -60,7 +60,7 @@ router.post("/send-message", messageControllers.sendMessageBetweenUsers);
 router.get("/messages/:userId", messageControllers.listUserMessage);
 
 router.get(
-  "/messages/sender/:senderId/receiver/:receiverId",
+  "/messages/sender/:userId/receiver/:receiverId",
   messageControllers.listMessagesBetweenUsers
 );
 

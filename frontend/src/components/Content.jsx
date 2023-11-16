@@ -9,6 +9,8 @@ import UpdatePokemon from "../pages/UpdatePokemon";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import PrivateRoute from "../services/PrivateRoute";
+import Messages from "../pages/Messages";
+import MessageDetails from "../pages/MessageDetails";
 
 export default function Content() {
   const { infoUser } = useContext(ExportContext.Context);
@@ -30,6 +32,11 @@ export default function Content() {
         <Route path="/updatePokemon" element={<UpdatePokemon />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/messages" element={<Messages />} />
+        <Route
+          path="/messages/:sender/:receiver"
+          element={<MessageDetails />}
+        />
       </Routes>
     </section>
   );
