@@ -17,7 +17,10 @@ export default function MessageDetails() {
       .get(
         `${
           import.meta.env.VITE_BACKEND_URL
-        }/messages/sender/${sender}/receiver/${receiver}`
+        }/messages/sender/${sender}/receiver/${receiver}`,
+        {
+          withCredentials: true,
+        }
       )
       .then((response) => {
         setData(response.data.result);

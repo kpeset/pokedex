@@ -6,8 +6,6 @@ import SearchBar from "./SearchBar";
 export default function Navbar() {
   const { infoUser } = useContext(ExportContext.Context);
 
-  console.info(infoUser.email);
-
   return (
     <nav>
       <div className="logo">
@@ -21,6 +19,14 @@ export default function Navbar() {
         <li>
           <Link to="/pokedex">Pokedex</Link>
         </li>
+
+        {infoUser.role === "user" ? (
+          <li>
+            <Link to="/messages">Messages</Link>
+          </li>
+        ) : (
+          ""
+        )}
 
         {infoUser.role === "admin" ? (
           <>

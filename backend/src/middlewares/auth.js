@@ -111,6 +111,16 @@ const checkIfAdmin = (req, res, next) => {
   }
 };
 
+const checkIfGoodId = (req, res, next) => {
+  const { userId } = req.params;
+
+  if (req.user.id !== parseInt(userId, 10)) {
+    res.status(401).send("Accès interdit");
+  } else {
+    next();
+  }
+};
+
 module.exports = {
   checkIfGoodUser,
   hashPassword,
@@ -118,4 +128,5 @@ module.exports = {
   checkEmailIfExist,
   checkIfIsAllowed,
   checkIfAdmin,
+  checkIfGoodId,
 };

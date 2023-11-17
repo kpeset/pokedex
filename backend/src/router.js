@@ -57,10 +57,17 @@ router.post("/login", auth.checkEmailIfExist, authServices.verifyPassword);
 
 router.post("/send-message", messageControllers.sendMessageBetweenUsers);
 
-router.get("/messages/:userId", messageControllers.listUserMessage);
+router.get(
+  "/messages/:userId",
+  auth.checkIfIsAllowed,
+  auth.checkIfGoodId,
+  messageControllers.listUserMessage
+);
 
 router.get(
   "/messages/sender/:userId/receiver/:receiverId",
+  auth.checkIfIsAllowed,
+  auth.checkIfGoodId,
   messageControllers.listMessagesBetweenUsers
 );
 

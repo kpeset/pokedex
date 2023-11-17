@@ -12,7 +12,9 @@ export default function Messages() {
 
   const getAllConversations = () => {
     axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/messages/${userId}`)
+      .get(`${import.meta.env.VITE_BACKEND_URL}/messages/${userId}`, {
+        withCredentials: true,
+      })
       .then((response) => {
         setData(response.data);
       })
