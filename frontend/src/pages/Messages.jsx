@@ -31,7 +31,7 @@ export default function Messages() {
     <>
       <h1>Liste des conversations</h1>
       {data.map((contact) => (
-        <>
+        <div className="conversation_list">
           <MessageCard contact={contact} />
           <Link
             key={contact.userId}
@@ -39,7 +39,7 @@ export default function Messages() {
           >
             Voir la conversation
           </Link>
-        </>
+        </div>
       ))}
     </>
   );
