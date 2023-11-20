@@ -1,3 +1,10 @@
+import NewsletterRegister from "../components/NewsletterRegister";
+
 export default function Homepage() {
-  return <h2>Accueil</h2>;
+  return (
+    <>
+      <h1>Homepage</h1>
+      <NewsletterRegister />
+    </>
+  );
 }

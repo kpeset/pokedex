@@ -11,6 +11,7 @@ import Login from "../pages/Login";
 import PrivateRoute from "../services/PrivateRoute";
 import Messages from "../pages/Messages";
 import MessageDetails from "../pages/MessageDetails";
+import Newsletter from "../pages/Newsletter";
 
 export default function Content() {
   const { infoUser } = useContext(ExportContext.Context);
@@ -33,6 +34,8 @@ export default function Content() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/messages" element={<Messages />} />
+        <Route path="/newsletter" element={<Newsletter />} />
+
         <Route
           path="/messages/:sender/:receiver"
           element={<MessageDetails />}

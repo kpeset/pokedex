@@ -37,6 +37,10 @@ export default function Navbar() {
             <li>
               <Link to="/updatePokemon">UpdatePokemon</Link>
             </li>
+
+            <li>
+              <Link to="/newsletter">Newsletter</Link>
+            </li>
           </>
         ) : (
           ""

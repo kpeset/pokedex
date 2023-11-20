@@ -72,4 +72,7 @@ CREATE TABLE messages (
   FOREIGN KEY (receiver_id) REFERENCES users(id)
 );
 
-
+CREATE TABLE newsletter (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(255) NOT NULL
+)

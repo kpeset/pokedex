@@ -12,6 +12,7 @@ import "./styles/search_bar.css";
 import "./styles/backoffice.css";
 import "./styles/register.css";
 import "./styles/messages.css";
+import "./styles/newsletter.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

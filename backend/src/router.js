@@ -5,6 +5,7 @@ const router = express.Router();
 const pokemonControllers = require("./controllers/pokemonControllers");
 const userControllers = require("./controllers/userControllers");
 const messageControllers = require("./controllers/messageControllers");
+const newsletterControllers = require("./controllers/newsletterControllers");
 
 const authServices = require("./services/authServices");
 
@@ -70,5 +71,9 @@ router.get(
   auth.checkIfGoodId,
   messageControllers.listMessagesBetweenUsers
 );
+
+router.get("/newsletter", newsletterControllers.getUsers);
+router.post("/newsletter", newsletterControllers.registerUser);
+router.post("/send-newsletter", newsletterControllers.sendNewsletter);
 
 module.exports = router;
