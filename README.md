@@ -14,7 +14,7 @@ Dans cet atelier, nous allons créer la logique de code afin de créer des utili
 
 Afin de créer un utilisateur, nous devons exécuter une requête SQL qui permettra d'ajouter un utilisateur à la table users. Pour cela nous allons entrer ce code dans notre model UserManager.js :
 
-```
+```js
   insert(email, hashedPassword) {
     return this.database.query(
       `INSERT INTO users (email, hashedPassword) VALUES (?, ?)`,
@@ -29,7 +29,7 @@ Ici nous avons crée la fonction `insert` qui prend en deux paramètres : email 
 
 Nous allons créer la méthode `postUser` dans notre controller. N'oubliez pas de dire que `email` et `hashedPassword` vont provenir du `req.body` :
 
-```
+```js
 const postUser = (req, res) => {
   const { email, hashedPassword } = req.body;
 
@@ -60,7 +60,7 @@ Toute la logique de hashage et de controle des données envoyées via Joi se fer
 
 Le premier middleware que nous allons créer consistera à vérifier avec Joi que `email` est bien un email et que `password` est bien une chaine de caractère qui contient au minimum 8 caractères :
 
-```
+```js
 const userSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(8).required(),
@@ -71,7 +71,7 @@ Nous avons d'abord créer `userSchema` qui va exécuter la fonction Joi.object q
 
 Ensuite nous allons créer une fonction `validateUser` qui agira en tant que middleware (reconnaissable car il contient `next` dans les paramètres) :
 
-```
+```js
 const validateUser = (req, res, next) => {
   const { error } = userSchema.validate(req.body);
 
@@ -92,7 +92,7 @@ Pour hasher notre password, nous allons créer un middleware `hashPassword` et u
 
 La première étape est de paramétrer l'algorithme de hashage. Pour cela nous allons mettre des options dans un objet `hashingOptions`. J'insiste sur le fait que cet algorithme est celui qui provient de la documentation. Je n'ai absolument rien inventé :
 
-```
+```js
 const hashingOptions = {
   type: argon2.argon2id,
   memoryCost: 2 ** 16,
@@ -103,7 +103,7 @@ const hashingOptions = {
 
 Puis ensuite nous pouvons créer notre middleware `hashPassword` :
 
-```
+```js
 const hashPassword = (req, res, next) => {
   argon2
     .hash(req.body.password, hashingOptions)
@@ -132,7 +132,7 @@ Si la réponse est positive, alors nous mettons ce nouveau password `hashedPassw
 
 Nous allons maintenant créer la route :
 
-```
+```js
 router.post(
   "/users",
   auth.validateUser,
