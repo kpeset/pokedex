@@ -10,7 +10,7 @@ Dans cet atelier, nous allons créer la logique de code afin d'uploader un fichi
 Donc n'oubliez pas d'installer ces deux packages NPM  dans votre backend !
 <br>
 <br>
-## Analyse du code
+## Backend
 
 Le but de cette nouvelle fonctionnalité sera d'uploader une image lors de la création d'un pokemon car jusqu'à maintenant nous mettions directement l'url d'une image présente sur le web.
 Voici les étapes pour uploader un fichier :
