@@ -97,12 +97,38 @@ Puis maintenant il ne nous reste plus qu'à mettre à jour notre requête SQL si
   }
 ```
 
+## Frontend
 
+Les modifications du backoffice côté React est relativement simple.
+Afin de transmettre un fichier au server depuis le client, nous devons utiliser `formData` :
 
+```js
+  const addPokemon = (event) => {
+    const formData = new FormData();
 
+    formData.append("name", name);
+    formData.append("type", type);
+    formData.append("weight", weight);
+    formData.append("image", image);
 
+    event.preventDefault();
+    axios
+      .post(`${import.meta.env.VITE_BACKEND_URL}/pokemon`, formData)
+```
 
+À chaque fois que nous voulons ajouter un champ à `formData` nous utilisons la méthode `append` qui prend deux paramètres : la propriété et sa valeur.
+Nous enverrons ensuite dans le body de notre requête axios, notre formData.
 
+Évidemment nous avons du créer un `input` de type `file` pour sélectionner un fichier sur notre ordinateur :
+
+```jsx
+  <input
+          type="file"
+          onChange={(event) => setImage(event.target.files[0])}
+        />
+```
+
+Nous enregistrons le fichier dans le state `image`.
 
 
 
