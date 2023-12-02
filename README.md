@@ -162,10 +162,33 @@ Ce composant prend deux props :
 
 Si l'utisateur est autorisé alors nous afficherons le composant enfant. Si il n'est pas autorisé alors l'utilisateur sera redirigé vers `"/"`.
 
+Ensuite nous allons modifier nous routes existantes qui sont dans le composant `Content.jsx`.
+Nous devons d'abord importer `useContext`, notre context ainsi que le composant `PrivateRoute` :
 
+```js
+import { useContext } from "react";
+import ExportContext from "../contexts/Context";
+import PrivateRoute from "../services/PrivateRoute";
+```
 
+Et par exemple, nous allons mettre une condition sur une route :
 
+```jsx
+        <Route
+          path="/backoffice"
+          element={
+            <PrivateRoute isAllowed={infoUser.role === "admin"}>
+              <Backoffice />
+            </PrivateRoute>
+          }
+        />
+```
 
+La route `/backoffice` a comme element `PrivateRoute` dont l'enfant est `<Backoffice />`.
+On stipule dans `isAllowed` qui est autorisé à accéder à `<Backoffice />`. Ici il s'agit de ce qui ont le rôle admin.
 
+**ATTENTION : ** N'oublier pas d'importer le context :
 
-  
+```js
+  const { infoUser } = useContext(ExportContext.Context);
+```
