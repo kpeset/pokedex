@@ -126,6 +126,8 @@ Maintenant nous pouvons créer notre route dans `router.js`:
 router.post("/login", auth.checkEmailIfExist, userControllers.verifyPassword);
 ```
 
+<br>
+<br>
 
 ## Middleware de vérification d'utilisateur
 
