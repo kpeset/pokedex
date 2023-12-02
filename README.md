@@ -51,5 +51,22 @@ Puis comme d'habitude, nous stockons la réponses dans un état.
   const [data, setData] = useState([]);
 ```
 
+Et c'est sur `data`que nous allons boucler pour afficher le composant `<MessageCard />` autant de fois qu'il y a de conversations dans data :
+
+```jsx
+      {data.map((contact) => (
+        <>
+          <MessageCard contact={contact} />
+          <Link
+            key={contact.userId}
+            to={`/messages/${userId}/${contact.userId}`}
+          >
+            Voir la conversation
+          </Link>
+        </>
+      ))}
+```
+
+
 
 
