@@ -112,3 +112,4 @@ Intéressons-nous maintenant à la requête pour lister les conversations qu'un 
 La fonction prend un seul paramètre userId, qui représente l'identifiant de l'utilisateur dont on veut lister les conversations.
 Il y a une jointure (INNER JOIN) entre la table messages et la table users.
 La requête filtre les messages où l'utilisateur actuel (userId) est soit l'expéditeur soit le destinataire puis on exclut les enregistrements où other_user.id est égal à userId pour éviter de lister l'utilisateur lui-même.
+Puis nous trions les résultats par date en ordre décroissant (DESC), montrant ainsi les conversations les plus récentes en premier.
