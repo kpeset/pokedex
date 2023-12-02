@@ -5,7 +5,7 @@
 Dans cet atelier, nous allons créer la logique de code afin d'améliorer l'expérience de l'utilisateur par rapport aux services qu'il peut utiliser selon son rôle après connexion.
 <br>
 <br>
-## Analyse du code
+## Rôles et context
 
 ### Enregistrer les informations de l'utilisateur après connexion
 
@@ -134,6 +134,11 @@ Maintenant nous pouvons utiliser ces informations pour ajouter des conditions à
 ```
 
 Si `infoUser.role` est `admin` alors nous afficherons les liens du backoffice. Sinon nous afficherons une chaine de caractères vide.
+
+<br>
+<br>
+## Rôles et Routes privées
+
 
 
 
