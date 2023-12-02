@@ -19,6 +19,7 @@ Voici les étapes pour uploader un fichier :
 
 Dans la mesure où nous avons ici deux étapes, on arrive à la conclusion que l'upload se fera via un middleware et que l'ajout du nom du fichier dans la BDD se fera dans un controller.
 
+
 ### Création du middleware upload
 Nous allons dans un premier temps créer le middleware pour uploader un fichier. Nous avons crée dans le dossier des middlewares un fichier `upload.js` :
 
