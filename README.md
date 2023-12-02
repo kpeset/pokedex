@@ -15,7 +15,7 @@ Nous aurons aussi besoin d'utiliser les deux hooks de React : `useState` et `use
 
 La création du formulaire est plutôt simple :
 
-```
+```jsx
       <form onSubmit={addPokemon}>
         <label htmlFor="name">Nom du pokemon</label>
         <input
@@ -47,13 +47,13 @@ La création du formulaire est plutôt simple :
 
 Nous avons ici quatre `input text`. A chaque changement que subissent les inputs, nous allons changer le state auquel l'input est lié :
 
-```
+```jsx
 onChange={(event) => setName(event.target.value)}
 ```
 
 Ces changements seront stockés dans ces states :
 
-```
+```js
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [weight, setWeight] = useState("");
@@ -62,7 +62,7 @@ Ces changements seront stockés dans ces states :
 
 Et lorsque nous voulons soummettre ces données à notre back, nous allons utiliser `axios` :
 
-```
+```js
   const addPokemon = () => {
     axios
       .post(`http://localhost:5000/pokemon`, {
@@ -80,7 +80,7 @@ Et lorsque nous voulons soummettre ces données à notre back, nous allons utili
 
 Exécuter la fonction `getPokemonList()` à la fin de la requête pour ajouter un pokemon, permet de raffraichir la liste des pokemons :
 
-```
+```js
   const getPokemonList = () => {
     axios.get(`http://localhost:5000/pokemon`).then((response) => {
       setPokemonList(response.data);
@@ -90,7 +90,7 @@ Exécuter la fonction `getPokemonList()` à la fin de la requête pour ajouter u
 
 La liste des pokemons est affichée de la façon suivante dans le `return` :
 
-```
+```jsx
 <ul>
         {pokemonList.map((pokemon) => (
           <li key={pokemon.id}>
@@ -108,7 +108,7 @@ La liste des pokemons est affichée de la façon suivante dans le `return` :
 Nous utilisons la méthode de tableau `map` pour ajouter un `li` qui affichera le nom du pokemon ainsi que le bouton **supprimer**, autant de fois qu'il y a de pokemon dans le state `pokemonList`.
 Puis nous exécuterons la fonction `deletePokemon` qui aura l'id du pokemon en paramètre, lorsque nous voudrons supprimer un pokemon :
 
-```
+```js
   const deletePokemon = (id) => {
     axios.delete(`http://localhost:5000/pokemon/${id}`).then((response) => {
       console.info(response);
