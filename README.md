@@ -127,5 +127,11 @@ router.post("/login", auth.checkEmailIfExist, userControllers.verifyPassword);
 ```
 
 
+## Middleware de vérification d'utilisateur
+
+Le but de la connexion d'utilisateur est de permettre de protéger du contenu qui normalemment est réservé à un utilisateur connecté. Nous allons créer alors un middleware qui vérifiera si l'utilisateur possède un cookie. Puis le token que contient le cookie sera analyser par JWT afin de vérifier son authenticité.
+
+
+
 
 
