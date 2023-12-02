@@ -4,8 +4,8 @@
 
 Dans cet atelier, nous allons créer la logique de code afin de connecter nos utilisateurs côté backend. Nous aurons besoin de :
 
-- **** : [**JWT (Json Web Tokens)**](https://www.npmjs.com/package/jsonwebtoken)
-- **** : [**Cookie-parser**](https://www.npmjs.com/package/cookie-parser)
+- [**JWT (Json Web Tokens)**](https://www.npmjs.com/package/jsonwebtoken)
+- [**Cookie-parser**](https://www.npmjs.com/package/cookie-parser)
 
 Donc n'oubliez pas d'installer ces deux packages NPM !
 
