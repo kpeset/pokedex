@@ -11,14 +11,14 @@ Dans cet atelier, nous allon continuer notre CRUD, en faisant des fonctions capa
 ### Création des requêtes mySQL
 
 Pour créer de la data en mSQL, nous devons utiliser `INSERT INTO` sur notre table `pokemon` de la façon suivante :
-```
+```SQL
 INSERT INTO pokemon (name, type, weight, image) VALUES ("Pikachu", "electrique", 12, "lien de l'image")
 ```
 
 Mais ça c'est la façon manuelle de le faire. Nous voulons exécuter cette commande de façon dynamique sur notre back. Nous allons donc mettre notre logique dans un model.
 Quel modèle s'occupe de nos requêtes concernant les pokemon ? Réponse : `pokemonManager`. Nous allons nous concentrer sur comment créer un pokemon. La logique pour update/supprimer un pokemon est sensiblement la même.
 
-```
+```js
   insert(pokemon) {
     return this.database.query(
       `INSERT INTO pokemon (name, type, weight, image) VALUES (?, ?, ?, ?)`,
@@ -29,13 +29,13 @@ Quel modèle s'occupe de nos requêtes concernant les pokemon ? Réponse : `poke
 
 Ici nous avons crée une fonction `insert` qui prend en paramêtre `pokemon`. Ce `pokemon` sont les informations que l'on va avoir dans notre body et qu'on a crée dans notre controller :
 
-```
+```js
 const pokemon = req.body;
 ```
 
 Revenons à notre fonction `insert` :
 
-```
+```js
   insert(pokemon) {
     return this.database.query(
       `INSERT INTO pokemon (name, type, weight, image) VALUES (?, ?, ?, ?)`,
@@ -46,20 +46,20 @@ Revenons à notre fonction `insert` :
 
 Notre `pokemon` est un objet qui pour être crée a besoin d'un nom, type, poids et image. Nous allons insérer des `VALUES` de façon dynamiques :
 
-```
+```SQL
  VALUES (?, ?, ?, ?)
 ```
 
 Les `?` seront remplacés dans l'ordre par les éléments qui sont dans le tableau qui suit la requête :
 
-```
+```js
  [pokemon.name, pokemon.type, pokemon.weight, pokemon.image]
 ```
 
 ### Création du controller pour créer un pokemon
 Pour créer un pokemon, nous avons crée la fonction suivante dans notre controller :
 
-```
+```js
 const add = (req, res) => {
   const pokemon = req.body;
 
@@ -83,7 +83,7 @@ const add = (req, res) => {
 
 Maintenant que notre controller et notre model sont prêts, nous allons pouvoir créer nos routes dans le fichier `router.js`:
 
-```
+```js
 router.post("/pokemon", pokemonControllers.add);
 ```
 
