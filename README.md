@@ -66,6 +66,9 @@ const sendRegisterData = (event) => {
 
 Avant de faire la requête `axios`, nous vérifions que le state `password` est bien égale à `checkedPassword`. Ensuite nous faisons la requête `post` avec dans le corps de formulaire un `email` et un `password`.
 
+<br>
+<br>
+
 ### Gestion des erreurs
 
 Afin d'améliorer l'expérience utilisateur nous avons mis en place un système de gestion des erreurs avec plusieurs conditions : 
