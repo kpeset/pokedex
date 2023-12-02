@@ -63,3 +63,32 @@ Que vérifie cette fonction ? L'émail. Notre émail proviendra du body de la re
 Puis ensuite nous utiliserons la fonction `searchByEmail` que nous avons précédemment crée dans le `UserManager`. Si la longueur de la réponse que l'on reçoit n'est pas inférieure à 0, alors nous enregistrons dans `req.user` les données reçues puis nous serons redirigés vers l'étape suivante grace au `next()`. Si il n'y a pas de résultats alors nous envoyons une erreur 401 sans message particulier.
 
 
+Maintenant nous allons passer à la vérification du password qui se fera dans `userControllers`. Nous aurons besoin de **JWT** et de **Argon2**, donc n'oubliez pas de les importer.
+La logique est la suivante : **lorsque la vérification du password avec Argon2 est faite, alors nous allons générer un token avec JWT que nous enregistrerons dans un cookie.**
+
+Nous allons alors créer la fonction `verifyPassword` :
+
+```js
+const verifyPassword = (req, res) => {
+  argon2
+    .verify(req.user.hashedPassword, req.body.password)
+    .then((isVerified) => {
+      if (isVerified) {
+        const payload = {
+          sub: req.user.id,
+          email: req.user.email,
+        };
+
+        const token = jwt.sign(payload, process.env.JWT_SECRET, {
+          expiresIn: "1h",
+        });
+
+        res.cookie("authToken", token);
+
+        res.status(200).send("Connexion réussie");
+      } else {
+        res.sendStatus(401);
+      }
+    });
+};
+```
