@@ -126,7 +126,7 @@ const registerUser = (req, res) => {
 ```
 
 On crée un objet `message` contenant les détails de l'émail de bienvenue à envoyer à l'utilisateur :
-- email: L'adresse e-mail de l'utilisateur, extraite du corps de la requête (req.body.email).
+- email: L'adresse e-mail de l'utilisateur, extraite du corps de la requête (`req.body.email`).
 - subject: Le sujet de l'e-mail.
 - text: Le corps du texte de l'e-mail.
 - html: La version HTML du corps de l'e-mail.
@@ -149,5 +149,36 @@ const { sendMail } = require("../services/sendEmail");
 
 En cas de succès de la requête SQL, nous envoyons l'émail avec la fonction `sendMail` avec en paramètre l'objet `message`.
 
+<br>
+<br>
 
+### Envoi d'émails à tous les utilisateurs
+
+Pour envoyer un émails à tous les utilisateurs, nous bouclerons simplement sur la liste des utilisateurs de notre BDD :
+
+```js
+const sendNewsletter = (req, res) => {
+  models.newsletter
+    .findAll()
+    .then(([subscribers]) => {
+      subscribers.forEach((subscriber) => {
+        const message = {
+          email: subscriber.email,
+          subject: req.body.subject,
+          text: req.body.text,
+          html: req.body.html,
+        };
+        sendMail({ message });
+      });
+      res.status(200).json({
+        message: "email envoyé avec succès",
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+```
+
+Dans un premier temps nous récupérons tous les utilisateurs via la fonction `findAll` puis lorsque nous avons tous les utilisateur nous allons utiliser la boucle `forEach`. Nous exécuteront la fonction Send e-mails à chaque subscriber.
 
