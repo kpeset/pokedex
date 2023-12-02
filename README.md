@@ -142,6 +142,7 @@ Trois choses sont présentes dans le body de la requête :
 - le receiver
 - le contenu
 
+**ATTENTION : ** N'oubliez pas créer un middleware qui vérifie l'authenticité de l'utilisateur. Le code est présent sur cette branche.
 
 
 
