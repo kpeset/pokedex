@@ -25,7 +25,7 @@ L'application contiendra pour le moment les dossiers suivants :
 
 Bien que notre backend soit en local, la requête API n'est pas différentes celles que nous avons fait précédemment dans les autres ateliers et sur le projet 2. Regardons le code sur la page Pokedex :
 
-```
+```js
     useEffect(() => {
         axios
             .get(`http://localhost:8000/pokemons`)
@@ -39,7 +39,7 @@ Ici, nous mettons notre requête API dans un `useEffect`au tableau de dépendanc
 
 Il ne nous reste plus qu'à afficher notre composant `PokemonCard` qui recevra en props la réponse de la requête API. Nous bouclerons notre tableau d'objet `data` en utilisant la méthode **map** :
 
-```
+```js
 <div className="pokemon_list">
   {data.map((pokemon) => <PokemonCard key={pokemon.id} details={pokemon} />)}
 </div>
