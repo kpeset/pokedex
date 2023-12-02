@@ -11,7 +11,7 @@ Dans cet atelier, nous allons créer nos premiers middlewares. Ils seront peu ut
 Nous allons réunir tous nos middlewares dans un dossiers `middlewares`. C'est dans ce dossier que nous allons créer plusieurs fichiers (middleware d'authentification etc...).
 Donc nous allons créer un premier middleware qui vérifie si un email et un password sont valides pour passer à l'étape suivante :
 
-```
+```js
 const checkIfGoodUser = (req, res, next) => {
   const { email, password } = req.query;
 
@@ -28,7 +28,7 @@ const checkIfGoodUser = (req, res, next) => {
 Ce middleware est une simple condition. Il vérifie si l'émail et le password qui sont dans le `req.query` sont les même qui sont dans la condition.
 Si c'est bon, alors nous exécutons la suite de notre route via `next()` sinon on arrête tout en envoyant un `status(403)`. Voici un exemple de route :
 
-```
+```js
 router.get("/pokemon", checkIfGoodUser, pokemonControllers.browse);
 ```
 
