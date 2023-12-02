@@ -63,6 +63,8 @@ module.exports = { getAllAdmin };
 
 ```
 
+<br>
+<br>
 
 ### Modification de la requête searchByMail
 
@@ -120,6 +122,8 @@ const checkEmailIfExist = (req, res, next) => {
 
 Ici nous avons maintenant deux vérifications dans chacune des tables admin et user. Si l'émail existe dans la table admin alors nous ajouterons dans `req.user` le role admin et nous ferons de même pour user.
 
+<br>
+<br>
 
 ### Modification du controller
 
