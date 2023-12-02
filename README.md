@@ -40,6 +40,8 @@ const navigate = useNavigate()
 // utilisation de notre variable
 navigate(`/search/${userResearch}`)
 ```
+<br>
+<br>
 
 ### Création de la route et de la page SearchResult
 
