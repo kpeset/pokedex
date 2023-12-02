@@ -87,7 +87,7 @@ La première partie de ce formulaire est une balise `select` qui contient autant
 
 Quand nous choisissons une options, alors le `select` va subir un changement. Et c'est à ce moment là que nous stockons la valeur de l'option (qui est l'id du pokemon `<option key={pokemon.id} value={pokemon.id}>`) dans le state `selectedValue`. La `value` finale de notre `select` sera alors `selectedValue` :
 
-```
+```jsx
       <select
         onChange={(event) => setSelectedValue(event.target.value)}
         value={selectedValue}
@@ -96,7 +96,7 @@ Quand nous choisissons une options, alors le `select` va subir un changement. Et
 
 Nous allons ensuite récupérer les datas du pokemon sélectionné :
 
-```
+```js
 const getOnePokemon = (id) => {
     axios.get(`http://localhost:5000/pokemon/${id}`).then((response) => {
       setSelectedPokemon({
@@ -114,7 +114,7 @@ Les deux valeurs possibles lorsque nous allons stocker la data reçue dans `sele
 
 Puis nous utilisons ces données pour remplir les différents `input text` du formulaire. Exemple :
 
-```
+```jsx
   <input
               type="text"
               placeholder={selectedPokemon.weight}
@@ -130,7 +130,7 @@ Puis nous utilisons ces données pour remplir les différents `input text` du fo
 
 **RAPPEL :** Cette syntaxe nous permet de mettre à jour dynamiquement notre objet sans écraser les autres propriété de l'objet :
 
-```
+```js
 setSelectedPokemon({
                   ...selectedPokemon,
                   weight: event.target.value,
@@ -141,7 +141,7 @@ setSelectedPokemon({
 
 Maintenant que nos states contiennent les nouvelles informations de notre pokemon, nous pouvons utiliser `axios` :
 
-```
+```js
   const updatePokemon = (id) => {
     axios
       .put(`http://localhost:5000/pokemon/${id}`, {
@@ -162,7 +162,7 @@ La fonction `axios.put` prend deux paramètres : le lien et ce qu'il y aura dans
 
 Nous avons utilisé sur cette page trois fois le useEffect :
 
-```
+```js
   useEffect(() => {
     getPokemonList();
   }, []);
