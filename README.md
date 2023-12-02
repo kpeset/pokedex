@@ -119,3 +119,13 @@ JWT_SECRET=VOTREMOTDEPASSE
 
 Une fois que ce token est généré nous envoyons en réponse au client un cookie appelé **authToken** qui contiendra notre token.
 
+
+Maintenant nous pouvons créer notre route dans `router.js`:
+
+```js
+router.post("/login", auth.checkEmailIfExist, userControllers.verifyPassword);
+```
+
+
+
+
