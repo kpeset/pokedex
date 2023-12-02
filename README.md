@@ -16,6 +16,7 @@ Voici nos différents objectifs :
 Si vous voulez plus de détails concernant le code, je vous invite à regarder la vidéo concernant la présentation du template côté backend.
 <br>
 <br>
+
 ### Controller et model
 
 Le controller permet la gestion des requêtes HTTP. Il agit comme une interface entre les routes et les models.
@@ -56,6 +57,7 @@ findAll() {
 ```
 <br>
 <br>
+
 ### Création du controller et du model pour lister tous les pokemon d'un certain type
 
 Voyons maintenant un exemple dont nous devrons aussi coder le model. Nous allons lister les pokemon selon le type. Commençons par la création de notre **controller** :
@@ -94,6 +96,7 @@ Ici, il s'agit d'une simple requête SQL.
 ```
 <br>
 <br>
+
 ### Création des routes
 
 Maintenant que notre controller et notre model sont prêts, nous allons pouvoir créer nos routes dans le fichier `router.js`:
