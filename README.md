@@ -26,7 +26,7 @@ Le model est responsable de l'interaction avec la base de données. C'est ici qu
 
 Pour lister tous nos pokemon, nous avons crée le code suivant :
 
-```
+```js
 const browse = (req, res) => {
   models.pokemon
     .findAll()
@@ -48,7 +48,7 @@ const browse = (req, res) => {
 
 C'est pour cette raison, que nous avons pas besoin d'éditer `PokemonManager.js` pour lister tous nos pokemon, puisque cette fonctionnalité est déjà présente dans le `AbstractManager` :
 
-```
+```js
 findAll() {
     return this.database.query(`select * from  ${this.table}`);
   }
@@ -58,7 +58,7 @@ findAll() {
 
 Voyons maintenant un exemple dont nous devrons aussi coder le model. Nous allons lister les pokemon selon le type. Commençons par la création de notre **controller** :
 
-```
+```js
 const searchByType = (req, res) => {
   const { type } = req.params;
   models.pokemon.findByType(type).then(([rows]) => {
@@ -77,7 +77,7 @@ const searchByType = (req, res) => {
 
 Maintenant nous pouvons créer notre model dans `PokemonManager.js` :
 
-```
+```js
   findByType(type) {
     return this.database.query(`SELECT * FROM pokemon WHERE type = ?`, [type]);
   }
@@ -87,7 +87,7 @@ Ici, il s'agit d'une simple requête SQL.
 
 **ATTENTION :** N'oubliez pas de préciser qu'il s'agit de la table `pokemon` :
 
-```
+```js
     super({ table: "pokemon" });
 ```
 
@@ -95,7 +95,7 @@ Ici, il s'agit d'une simple requête SQL.
 
 Maintenant que notre controller et notre model sont prêts, nous allons pouvoir créer nos routes dans le fichier `router.js`:
 
-```
+```js
 const pokemonControllers = require("./controllers/pokemonControllers");
 
 router.get("/pokemon", pokemonControllers.browse);
