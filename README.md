@@ -39,7 +39,7 @@ La première chose à faire est créer dans le UserManager la requête mysql qui
 
 Nous allons maintenant procéder à la création du middleware qui vérifie l'émail. Pour cela nous avons décidé de le créer directement dans le fichier `auth.js`. Notre middleware sera une fonction que l'on va appeler `checkEmailIfExist` :
 
-```
+```js
 const checkEmailIfExist = (req, res, next) => {
   const { email } = req.body;
 
