@@ -1,36 +1,67 @@
-# Express : Pokedex
+# Express - Les rôles : partie 1
 
 ## Objectif de l'atelier
 
-Nous utiliserons cet atelier "fil rouge" lors de nos groupe support. C'est sur cette applications que nous testerons les fonctionnalités Express que l'on va apprendre lors de notre projet 3.
-Il s'agit d'un atelier fullstack avec d'un côté le backend et de l'autre le frontend, basé sur le template de la Wild.
+Dans cet atelier, nous allons créer la logique de code afin de créer des roles pour nos utilisateurs.
 
-## Utilisation
 
-Chaque fois que nous allons coder une feature, nous allons créer une branche spécifique.
-De cette façon, vous pourrez aller de branches en branches pour voir le code que l'on a crée et aussi l'analyser.
-Je vous invite aussi à lire le Readme de chaque branche.
+## Préparation
 
-## Prérequis
+### Création d'une table admin et Controllers / Manager
 
-Pour les utilisatrices de windows **UNIQUEMENT**, vous denez saisir ces commandes dans le terminal de votre VS CODE :
+Dans l'exemple que nous avons fait en live coding, nous avons décidé qu'il y ai deux rôles : admin et user.
+Jusqu'à maintenant nous avions uniquement la table user. Nous avons donc ajouté la table admin à notre `database.sql` :
+
+```SQL
+CREATE TABLE admin (
+  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  hashedPassword VARCHAR(255) NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+INSERT INTO `admin` (`email`, `hashedPassword`)
+VALUES
+("admin@gmail.com", "$argon2id$v=19$m=65536,t=5,p=1$ikpFm/0Ded52TiFU08Y2uw$MkLfR6uw5vFZbB0vBOmbrUIWumck3tS0K8TWj9aDpWw");
+```
+
+Nous avons aussi crée un fichier `AdminManager.js` et nous allons aussi mettre nos controllers dans un fichier `adminControllers.js`. N'oubliez pas d'ajouter ce nouveau manager dans `index.js` (vérifiez le code de cette branche en cas de doute).
+Le controller et manager seront pour le moment vides :
+
+
+```js
+// AdminManager.js
+
+const AbstractManager = require("./AbstractManager");
+
+class AdminManager extends AbstractManager {
+  constructor() {
+    super({ table: "admin" });
+  }
+
+  // C'EST ICI QU'ON VA METTRE TOUTES NOS METHODES DE REQUETES
+}
+
+module.exports = AdminManager;
+
+// adminControllers.js
+
+const models = require("../models");
+
+const getAllAdmin = (req, res) => {
+  models.admin
+    .findAll()
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+module.exports = { getAllAdmin };
 
 ```
-git config --global core.eol lf
-git config --global core.autocrlf false
-```
 
-## Installation
 
-Pour installer ce repo, il vous suffit de cloner ce repository sur votre ordinateur et de faire `npm install` afin d'installer les dépendances.
 
-**ATTENTION :** Pour executer le server backend, vous devez créer et configurer le fichier `.env` dans votre dossier `backend/`. Vous pouvez vous référer à l'exemple situé dans `backend/.env.sample`.
-
-### Commandes disponibles
-
-- `migrate` : Execute la migration de la base de données
-- `dev` : Démarre les deux servers (front et back)
-- `dev-front` : Démarre uniquement le server react
-- `dev-back` : Démarre uniquement le server backend
-- `lint` : Exécute les outils de validation de code
-- `fix` : Répare les erreurs de linter
