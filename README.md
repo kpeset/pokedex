@@ -20,6 +20,8 @@ L'application contiendra pour le moment les dossiers suivants :
 - **Pages** : C'est ici que nous mettrons nos différentes pages
 - **Styles** : Dossier pour stocker nos fichiers css
 
+<br>
+<br>
 
 ### Pokedex & Requête API
 
