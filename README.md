@@ -40,7 +40,7 @@ Une messagerie nous permet :
 - lister les utilisateurs avec qui on a eu une conversation
 - accéder à la conversation complète
 
-Nous aurons donc besoin d'un controller et d'un manager. Pour la création de ces fichiers, je vous invite à revoir les branches précédentes.
+Nous aurons donc besoin d'un controller et d'un manager. Pour la création de ces fichiers et de la création des routes je vous invite à revoir les branches précédentes.
 
 La première chose à faire est de faire une requête qui permet à un utilisateur A, d'envoyer un message à un utilisateur B.
 
@@ -116,3 +116,38 @@ Il y a une jointure (INNER JOIN) entre la table messages et la table users.
 La requête filtre les messages où l'utilisateur actuel (userId) est soit l'expéditeur soit le destinataire puis on exclut les enregistrements où other_user.id est égal à userId pour éviter de lister l'utilisateur lui-même.
 
 Puis nous trions les résultats par date en ordre décroissant (DESC), montrant ainsi les conversations les plus récentes en premier.
+
+Maintenant analysons la requête qui permet d'afficher une conversation entre deux utilisateurs :
+
+```js
+  listMessages(sender, receiver) {
+    return this.database.query(
+      `
+        SELECT
+        messages.*,
+        sender.email AS sender_email,
+        receiver.email AS receiver_email
+        FROM
+        messages
+        JOIN
+            users AS sender ON messages.sender_id = sender.id
+        JOIN
+            users AS receiver ON messages.receiver_id = receiver.id
+        WHERE
+        (messages.sender_id = ? AND messages.receiver_id = ?)
+        OR (messages.sender_id = ? AND messages.receiver_id = ?)
+        ORDER BY
+         messages.timestamp ASC;
+        `,
+      [sender, receiver, receiver, sender]
+    );
+  }
+}
+```
+Cette fonction extrait tous les messages échangés entre deux utilisateurs spécifiés. Elle fournit des informations détaillées sur chaque message, y compris les e-mails de l'expéditeur et du destinataire.
+
+La table messages est jointe à la table users (alias sender) pour associer l'expéditeur à chaque message.
+
+Une autre jointure est réalisée avec la table users (alias receiver) pour associer le destinataire à chaque message.
+
+La requête sélectionne les messages où les identifiants de l'expéditeur et du destinataire correspondent soit à sender et receiver, soit à receiver et sender. Cela garantit que tous les messages échangés entre ces deux utilisateurs sont récupérés, peu importe qui est l'expéditeur ou le destinataire.
