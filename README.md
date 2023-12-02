@@ -1,11 +1,14 @@
-# React - Formulaire de register
+# Express - Login avec JWT et Cookie-parser
 
 ## Objectif de l'atelier
 
-Dans cet atelier, nous allons créer la logique de code afin de créer des utilisateurs côté front. Nous aurons besoin de :
+Dans cet atelier, nous allons créer la logique de code afin de connecter nos utilisateurs côté backend. Nous aurons besoin de :
 
-- Le hook useState pour la gestion des states du formulaire
-- Axios pour faire la requête `post` vers le backend
+- **** : [**JWT (Json Web Tokens)**](https://www.npmjs.com/package/jsonwebtoken)
+- **** : [**Cookie-parser**](https://www.npmjs.com/package/cookie-parser)
+
+Donc n'oubliez pas d'installer ces deux packages NPM !
+
 
 ## Explication du code
 
