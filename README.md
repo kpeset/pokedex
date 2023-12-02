@@ -29,6 +29,7 @@ Maintenant nous devons étudier quelle sera la procédure de connexion lorsque l
 
 Puisqu'il y a deux étapes, nous pouvons arriver à la conclusion que la vérification d'émail existant sera un middleware et que la vérification du password se fera dans le controller.
 
+
 La première chose à faire est créer dans le UserManager la requête mysql qui nous permet de checker si l'émail existe :
 
 ```js
@@ -65,6 +66,7 @@ Puis ensuite nous utiliserons la fonction `searchByEmail` que nous avons précé
 
 Maintenant nous allons passer à la vérification du password qui se fera dans `userControllers`. Nous aurons besoin de **JWT** et de **Argon2**, donc n'oubliez pas de les importer.
 La logique est la suivante : **lorsque la vérification du password avec Argon2 est faite, alors nous allons générer un token avec JWT que nous enregistrerons dans un cookie.**
+
 
 Nous allons alors créer la fonction `verifyPassword` :
 
