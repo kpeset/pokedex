@@ -61,7 +61,6 @@ router.post("/pokemon", uploadMiddleware.uploadFile, pokemonControllers.add);
 ```
 <br>
 <br>
-
 ### Modification de la requête SQL et du controller
 
 
