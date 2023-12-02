@@ -40,6 +40,9 @@ Ici nous avons l'exemple pour le champ email. Lorsque l'on change sa valeur, nou
 
 Cette fonction va changer le state de `email`, et remplacer l'état initial par la valeur de la cible qui subit l'évenement.
 
+<br>
+<br>
+
 ### Soumission du formulaire
 
 Notre formulaire va exécuter la fonction `sendRegisterData` lorsque celui-ci sera soumis :
