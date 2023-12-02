@@ -118,6 +118,31 @@ Puis nous bouclerons sur `data` afin de lister tous les messages échangés :
       ))}
 ```
 
+La seconde requête axios, sera exécutée lorsque le formulaire sera soumis :
+
+```js
+  const sendMessage = () => {
+    axios
+      .post(`${import.meta.env.VITE_BACKEND_URL}/send-message`, {
+        sender,
+        receiver,
+        content,
+      })
+      .then((response) => {
+        console.info(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+```
+
+Trois choses sont présentes dans le body de la requête :
+- le sender
+- le receiver
+- le contenu
+
+
 
 
 
