@@ -99,3 +99,48 @@ Nous pourrons maintenant utiliser cette fonction depuis n'importe où, même lor
 <br>
 
 ### Inscription des utilisateurs
+
+Dans notre controller, nous allons créer la fonction qui nous permet d'ajouter un utilisateur :
+
+```js
+const registerUser = (req, res) => {
+  const message = {
+    email: req.body.email,
+    subject: "Bienvenue sur pokedex",
+    text: "Bienvenue à toi dans la communauté pokedex !",
+    html: "<h1>Bienvenue à toi dans la communauté pokedex !</h1><p>Fais comme chez toi.</p>",
+  };
+
+  models.newsletter
+    .insert(message.email)
+    .then(([result]) => {
+      sendMail({ message });
+      console.info(result);
+      res.status(200).json({ message: "Email inscrit avec succès" });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ message: "Erreur lors de l'enregistrement" });
+    });
+};
+```
+
+On crée un objet `message` contenant les détails de l'émail de bienvenue à envoyer à l'utilisateur :
+- email: L'adresse e-mail de l'utilisateur, extraite du corps de la requête (req.body.email).
+- subject: Le sujet de l'e-mail.
+- text: Le corps du texte de l'e-mail.
+- html: La version HTML du corps de l'e-mail.
+
+Puis nous appelons la méthode `insert` du manager pour enregistrer l'émail dans la BDD :
+
+```js
+  insert(email) {
+    return this.database.query(`INSERT INTO newsletter (email) VALUES (?)`, [
+      email,
+    ]);
+  }
+```
+
+
+
+
