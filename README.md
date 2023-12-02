@@ -67,6 +67,56 @@ Et c'est sur `data`que nous allons boucler pour afficher le composant `<MessageC
       ))}
 ```
 
+Le composant `Link` permet de rediriger l'utilisateur vers la route messages qui aura deux params : l'id de l'utilisateur, et l'id de la personne dont on a reçu la data.
+
+<br>
+<br>
+
+### Échanges de messages
+
+Nous allons ici avoir deux requêtes axios différentes. 
+La première est celle qui permet d'afficher les messages échangés :
+
+```js
+  const getConversation = () => {
+    axios
+      .get(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/messages/sender/${sender}/receiver/${receiver}`
+      )
+      .then((response) => {
+        setData(response.data.result);
+      })
+      .catch();
+  };
+```
+
+Le sender et le receiver proviennent des params que l'on récupère :
+
+```js
+  const { sender, receiver } = useParams();
+```
+
+Maintenant, nous voulons exécuter `getConversation` toutes les 5 secondes afin de raffraichir la conversation :
+
+```js
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getConversation();
+    }, 5000);
+    return () => clearInterval(interval);
+  });
+```
+
+Puis nous bouclerons sur `data` afin de lister tous les messages échangés :
+
+```jsx
+      {data.map((message) => (
+        <MessageContent message={message} />
+      ))}
+```
+
 
 
 
