@@ -87,6 +87,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 );
 ```
 
+<br>
+<br>
+
 ### Mise à jour de la navbar
 
 Nous avons ensuite mis à jour la navbar de la façon suivante :
