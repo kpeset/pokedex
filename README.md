@@ -29,6 +29,14 @@ Maintenant nous devons étudier quelle sera la procédure de connexion lorsque l
 
 Puisqu'il y a deux étapes, nous pouvons arriver à la conclusion que la vérification d'émail existant sera un middleware et que la vérification du password se fera dans le controller.
 
+La première chose à faire est créer dans le UserManager la requête mysql qui nous permet de checker si l'émail existe :
+
+```
+  searchByEmail(email) {
+    return this.database.query(`SELECT * FROM users WHERE email = ?`, [email]);
+  }
+```
+
 Nous allons maintenant procéder à la création du middleware qui vérifie l'émail. Pour cela nous avons décidé de le créer directement dans le fichier `auth.js`. Notre middleware sera une fonction que l'on va appeler `checkEmailIfExist` :
 
 ```
@@ -51,3 +59,7 @@ Que vérifie cette fonction ? L'émail. Notre émail proviendra du body de la re
 ```
   const { email } = req.body;
 ```
+
+Puis ensuite nous utiliserons la fonction `searchByEmail` que nous avons précédemment crée dans le `UserManager`. Si la longueur de la réponse que l'on reçoit n'est pas inférieure à 0, alors nous enregistrons dans `req.user` les données reçues puis nous serons redirigés vers l'étape suivante grace au `next()`. Si il n'y a pas de résultats alors nous envoyons une erreur 401 sans message particulier.
+
+
