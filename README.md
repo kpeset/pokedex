@@ -74,7 +74,8 @@ import ExportContext from "./contexts/Context";
 import "./styles/app.css";
 import "./styles/nav.css";
 import "./styles/footer.css";
-	@@ -14,7 +15,9 @@ import "./styles/register.css";
+import "./styles/register.css";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
