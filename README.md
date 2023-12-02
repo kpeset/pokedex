@@ -64,6 +64,39 @@ router.post("/pokemon", uploadMiddleware.uploadFile, pokemonControllers.add);
 
 ### Modification de la requête SQL et du controller
 
+Nous allons légèrement modifier la fonction `add` du `pokemonController` car il faut dorénavant ajouter le chemin du fichier téléchargé à notre requête SQL. Nous allons juste ajouter un paramètre `picture` à notre fonction :
+
+```js
+const add = (req, res) => {
+  const pokemon = req.body;
+  const picture = req.file.filename;
+
+  models.pokemon
+    .insert(pokemon, picture)
+    .then(([result]) => {
+      console.info(result);
+      res.status(200).send("Le pokemon a bien été ajouté");
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Erreur de sauvegarde");
+    });
+};
+```
+
+Ce paramètre `picture` fait référence à ce qu'il y a dans le `req.file` dans lequel nous récupérons le nom du fichier `filename`
+
+Puis maintenant il ne nous reste plus qu'à mettre à jour notre requête SQL située dans la fonction `insert` de `PokemonManager.js` :
+
+```js
+  insert(pokemon, picture) {
+    return this.database.query(
+      `INSERT INTO pokemon (name, type, weight, image) VALUES (?, ?, ?, ?)`,
+      [pokemon.name, pokemon.type, pokemon.weight, picture]
+    );
+  }
+```
+
 
 
 
