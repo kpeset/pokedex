@@ -137,6 +137,7 @@ Si `infoUser.role` est `admin` alors nous afficherons les liens du backoffice. S
 
 <br>
 <br>
+
 ## Rôles et Routes privées
 
 
