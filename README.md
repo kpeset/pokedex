@@ -1,36 +1,194 @@
-# Express : Pokedex
+# React - Les rôles : partie 2 (useContext, Private Routes)
 
 ## Objectif de l'atelier
 
-Nous utiliserons cet atelier "fil rouge" lors de nos groupe support. C'est sur cette applications que nous testerons les fonctionnalités Express que l'on va apprendre lors de notre projet 3.
-Il s'agit d'un atelier fullstack avec d'un côté le backend et de l'autre le frontend, basé sur le template de la Wild.
+Dans cet atelier, nous allons créer la logique de code afin d'améliorer l'expérience de l'utilisateur par rapport aux services qu'il peut utiliser selon son rôle après connexion.
+<br>
+<br>
+## Rôles et context
 
-## Utilisation
+### Enregistrer les informations de l'utilisateur après connexion
 
-Chaque fois que nous allons coder une feature, nous allons créer une branche spécifique.
-De cette façon, vous pourrez aller de branches en branches pour voir le code que l'on a crée et aussi l'analyser.
-Je vous invite aussi à lire le Readme de chaque branche.
+Lorsque nous nous connectons sur la page login, nous recevons en réponse dorénavant notre rôle. Nous pouvons l'enregistrer dans le localStorage : 
 
-## Prérequis
-
-Pour les utilisatrices de windows **UNIQUEMENT**, vous denez saisir ces commandes dans le terminal de votre VS CODE :
-
+```js
+      .then((response) => {
+        console.info(response);
+        localStorage.setItem("role", response.data.role);
+        setError(false);
+        navigateToHomepage();
+      })
 ```
-git config --global core.eol lf
-git config --global core.autocrlf false
+
+Une fois fait, nous pouvons exécuter la fonction `navigateToHomepage` qui nous permet d'être redirigé vers la page d'accueil :
+
+```js
+  const navigateToHomepage = () => {
+    window.location.href = "/";
+  };
 ```
 
-## Installation
+**ATTENTION** : utiliser `window.location` nous fait sortir des principes de React car cela entraine le raffraichissement du DOM. Dans notre cas, nous avons besoin de raffraichir le DOM pour mettre à jour notre navbar. Néanmoins, il existe d'autres solutions qui nous permettent de mettre à jour notre navbar. Je vous invite à vous renseigner dessus.
 
-Pour installer ce repo, il vous suffit de cloner ce repository sur votre ordinateur et de faire `npm install` afin d'installer les dépendances.
+<br>
+<br>
 
-**ATTENTION :** Pour executer le server backend, vous devez créer et configurer le fichier `.env` dans votre dossier `backend/`. Vous pouvez vous référer à l'exemple situé dans `backend/.env.sample`.
+### Création du context
 
-### Commandes disponibles
+Nous avons crée un fichier `Context.jsx` dans le dossiers `contexts` :
 
-- `migrate` : Execute la migration de la base de données
-- `dev` : Démarre les deux servers (front et back)
-- `dev-front` : Démarre uniquement le server react
-- `dev-back` : Démarre uniquement le server backend
-- `lint` : Exécute les outils de validation de code
-- `fix` : Répare les erreurs de linter
+```js
+import { createContext, useState } from "react";
+
+const Context = createContext();
+
+function Provider({ children }) {
+  const [infoUser, setInfoUser] = useState({
+    role: localStorage.getItem("role")
+  });
+
+  return (
+    <Context.Provider value={{ infoUser, setInfoUser }}>
+      {children}
+    </Context.Provider>
+  );
+}
+
+const ExportContext = {
+  Context,
+  Provider,
+};
+
+export default ExportContext;
+```
+
+Celui-ci nous permet de pouvoir accéder depuis n'importe où dans notre application au state `infoUser`. Il est important de savoir que l'on peut ajouter ce qu'on veut dans l'objet `infoUser`. Nous pouvons ajouter l'id, l'email etc...
+
+Pensez bien à exporter votre context dans `Main.jsx` : 
+
+```js
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+import ExportContext from "./contexts/Context";
+import "./styles/app.css";
+import "./styles/nav.css";
+import "./styles/footer.css";
+import "./styles/register.css";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <ExportContext.Provider>
+        <App />
+      </ExportContext.Provider>
+    </BrowserRouter>
+  </React.StrictMode>
+);
+```
+
+<br>
+<br>
+
+### Mise à jour de la navbar
+
+Nous avons ensuite mis à jour la navbar de la façon suivante :
+- Si un utilisateur n'est pas connecté, il ne peut accéder qu'au login, register et à la liste des pokemon
+- Si un admin est connecté, il peut accéder au backoffice et à la liste des pokemon
+- Si un utilisateur est connecté, il peut accéder qu'à la liste des pokemon
+
+Nous avons donc besoin de consommer notre context dans `Navbar.jsx`.
+
+
+Nous devons d'abord exporter `useContext` puis notre context :
+
+```js
+import { useContext } from "react";
+import ExportContext from "../contexts/Context";
+```
+
+Et pour utiliser ce que l'on souhaite, nous allons utiliser le destructuring sur notre context :
+
+```js
+  const { infoUser } = useContext(ExportContext.Context);
+```
+
+Ici nous utiliserons uniquement `infoUser` qui provient du context.
+
+Maintenant nous pouvons utiliser ces informations pour ajouter des conditions à notre navbar en utilisant les ternaires :
+
+```jsx
+{infoUser.role === "admin" ? (
+          <>
+            <li>
+              <Link to="/backoffice">Backoffice</Link>
+            </li>
+
+            <li>
+              <Link to="/updatePokemon">UpdatePokemon</Link>
+            </li>
+          </>
+        ) : (
+          ""
+        )}
+```
+
+Si `infoUser.role` est `admin` alors nous afficherons les liens du backoffice. Sinon nous afficherons une chaine de caractères vide.
+
+<br>
+<br>
+
+## Rôles et Routes privées
+
+Ce n'est pas parce qu'un utilisateur ne peut pas voir le lien **backoffice** qu'il ne peut pas y accéder si il entre à la main l'url **/backoffice** dans son URL.
+C'est pour cela que nous devons maintenant créer des **route privées**.
+
+Nous allons créer un composant `PrivateRoute` dans le dossier `services`. Il va nous aider à gérer la navigation et l'accès aux routes privées dans notre application : 
+
+```js
+import { Navigate } from "react-router-dom";
+
+export default function PrivateRoute({ isAllowed, children }) {
+  if (!isAllowed) {
+    return <Navigate to="/" />;
+  }
+  return children;
+}
+```
+
+Ce composant prend deux props :
+- isAllowed est un boolean qui nous permettra de déterminer si un utilisateur peut accéder à la route ou non
+- children est le composant enfant qui est affiché si l'utilisateur est autorisé à accéder à la route
+
+Si l'utisateur est autorisé alors nous afficherons le composant enfant. Si il n'est pas autorisé alors l'utilisateur sera redirigé vers `"/"`.
+
+Ensuite nous allons modifier nous routes existantes qui sont dans le composant `Content.jsx`.
+Nous devons d'abord importer `useContext`, notre context ainsi que le composant `PrivateRoute` :
+
+```js
+import { useContext } from "react";
+import ExportContext from "../contexts/Context";
+import PrivateRoute from "../services/PrivateRoute";
+```
+
+Et par exemple, nous allons mettre une condition sur une route :
+
+```jsx
+        <Route
+          path="/backoffice"
+          element={
+            <PrivateRoute isAllowed={infoUser.role === "admin"}>
+              <Backoffice />
+            </PrivateRoute>
+          }
+        />
+```
+
+La route `/backoffice` a comme element `PrivateRoute` dont l'enfant est `<Backoffice />`.
+On stipule dans `isAllowed` qui est autorisé à accéder à `<Backoffice />`. Ici il s'agit de ce qui ont le rôle admin.
+
+**ATTENTION : ** N'oublier pas d'importer le context :
+
+```js
+  const { infoUser } = useContext(ExportContext.Context);
+```
