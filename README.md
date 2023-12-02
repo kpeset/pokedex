@@ -14,7 +14,7 @@ Donc n'oubliez pas d'installer ces deux packages NPM !
 Le package **Cookie-parser** va nous permettre de lire notre cookie pour ensuite l'analyser avec JWT. Il faut donc spécifier à Express que nous allons l'utiliser globalement sur toute notre application.
 Donc nous allons l'importer et l'utiliser dans app.js :
 
-```
+```js
 const cookieParser = require("cookie-parser");
 
 app.use(cookieParser());
@@ -31,7 +31,7 @@ Puisqu'il y a deux étapes, nous pouvons arriver à la conclusion que la vérifi
 
 La première chose à faire est créer dans le UserManager la requête mysql qui nous permet de checker si l'émail existe :
 
-```
+```js
   searchByEmail(email) {
     return this.database.query(`SELECT * FROM users WHERE email = ?`, [email]);
   }
@@ -56,7 +56,7 @@ const checkEmailIfExist = (req, res, next) => {
 ```
 
 Que vérifie cette fonction ? L'émail. Notre émail proviendra du body de la requête : 
-```
+```js
   const { email } = req.body;
 ```
 
