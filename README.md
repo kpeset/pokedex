@@ -1,36 +1,31 @@
-# Express : Pokedex
+# Express - Messagerie
 
 ## Objectif de l'atelier
 
-Nous utiliserons cet atelier "fil rouge" lors de nos groupe support. C'est sur cette applications que nous testerons les fonctionnalités Express que l'on va apprendre lors de notre projet 3.
-Il s'agit d'un atelier fullstack avec d'un côté le backend et de l'autre le frontend, basé sur le template de la Wild.
+Dans cet atelier, nous allons créer la logique de code côté Backend afin de créer un système de messagerie entre utilisateurs.
 
-## Utilisation
 
-Chaque fois que nous allons coder une feature, nous allons créer une branche spécifique.
-De cette façon, vous pourrez aller de branches en branches pour voir le code que l'on a crée et aussi l'analyser.
-Je vous invite aussi à lire le Readme de chaque branche.
+## Analyse du code
 
-## Prérequis
+### Création d'une table pour les messages
 
-Pour les utilisatrices de windows **UNIQUEMENT**, vous denez saisir ces commandes dans le terminal de votre VS CODE :
+Afin de stocker les messages dans notre BDD nous allons avoir besoin de créer une nouvelle table :
 
+```SQL
+CREATE TABLE messages (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  sender_id INT,
+  receiver_id INT,
+  content TEXT,
+  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (sender_id) REFERENCES users(id),
+  FOREIGN KEY (receiver_id) REFERENCES users(id)
+);
 ```
-git config --global core.eol lf
-git config --global core.autocrlf false
-```
 
-## Installation
+- id : Chaque message crée aura un id auto incrémenté
+- sender_id : id de l'utilisateur qui envoie le message. Cet id est une clé étrangère faisant référence à l'id de la table users.
+- receiver_id : id du destinataire. Cet id est une clé étrangère faisant référence à l'id de la table users.
+- content : le contenu du message
+- timestamp : la date et heure actuelle du message crée
 
-Pour installer ce repo, il vous suffit de cloner ce repository sur votre ordinateur et de faire `npm install` afin d'installer les dépendances.
-
-**ATTENTION :** Pour executer le server backend, vous devez créer et configurer le fichier `.env` dans votre dossier `backend/`. Vous pouvez vous référer à l'exemple situé dans `backend/.env.sample`.
-
-### Commandes disponibles
-
-- `migrate` : Execute la migration de la base de données
-- `dev` : Démarre les deux servers (front et back)
-- `dev-front` : Démarre uniquement le server react
-- `dev-back` : Démarre uniquement le server backend
-- `lint` : Exécute les outils de validation de code
-- `fix` : Répare les erreurs de linter
