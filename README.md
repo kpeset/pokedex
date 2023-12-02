@@ -97,6 +97,8 @@ Puis maintenant il ne nous reste plus qu'à mettre à jour notre requête SQL si
   }
 ```
 
+<br>
+<br>
 
 ## Frontend
 
