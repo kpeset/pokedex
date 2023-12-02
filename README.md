@@ -97,6 +97,7 @@ Puis maintenant il ne nous reste plus qu'à mettre à jour notre requête SQL si
   }
 ```
 
+
 ## Frontend
 
 Les modifications du backoffice côté React est relativement simple.
