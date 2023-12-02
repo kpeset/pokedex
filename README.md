@@ -15,7 +15,7 @@ Nous aurons aussi besoin d'utiliser les deux hooks de React : `useState` et `use
 
 La création du formulaire se révèle être un peu plus complexe que le formulaire pour créer un pokemon. Il existe autant de façon de faire qu'il y a de codeurs et codeuses. Voici comment nous, nous avons procédés :
 
-```
+```jsx
      <div className="update_pokemon_panel">
       <h1>Update Pokemon</h1>
       <select
