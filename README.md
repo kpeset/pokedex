@@ -18,7 +18,7 @@ Afin de créer un formulaire, l'utilisateur doit remplir trois champs :
 
 Ensuite l'email et le password seront envoyés au backend. Nous devons donc les stocker quelque part pour les envoyer. Nous allons comme à notre habitude utiliser `useState` :
 
-```
+```js
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkedPassword, setCheckedPassword] = useState("");
@@ -26,13 +26,13 @@ Ensuite l'email et le password seront envoyés au backend. Nous devons donc les 
 
 Ensuite nous allons créer notre `form` avec dedans nos trois `inputs` :
 
-```
+```jsx
 <input type="email" onChange={handleChangeEmail} />
 ```
 
 Ici nous avons l'exemple pour le champ email. Lorsque l'on change sa valeur, nous executons la fonction `handleChangeEmail` :
 
-```
+```js
   const handleChangeEmail = (event) => {
     setEmail(event.target.value);
   };
@@ -44,7 +44,7 @@ Cette fonction va changer le state de `email`, et remplacer l'état initial par 
 
 Notre formulaire va exécuter la fonction `sendRegisterData` lorsque celui-ci sera soumis :
 
-```
+```js
 const sendRegisterData = (event) => {
     event.preventDefault();
 
@@ -67,7 +67,7 @@ Avant de faire la requête `axios`, nous vérifions que le state `password` est 
 
 Afin d'améliorer l'expérience utilisateur nous avons mis en place un système de gestion des erreurs avec plusieurs conditions : 
 
-```
+```js
  .catch((err) => {
           if (
             err.response.data.error === `"email" is not allowed to be empty`
