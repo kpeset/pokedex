@@ -3,6 +3,8 @@
 ## Objectif de l'atelier
 
 Dans cet atelier, nous allons créer la logique de code afin d'afficher de pouvoir s'inscrire à la newsletter. Nous verrons aussi comment un admin peut envoyer un messages à tous les inscrits.
+
+
 Côté backend, nous aurons besoin de [**Nodemailer**](https://www.npmjs.com/package/nodemailer).
 <br>
 <br>
