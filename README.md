@@ -63,7 +63,7 @@ const transporter = nodemailer.createTransport({
 module.exports = transporter;
 ```
 
-**ATTENTION : ** N'oubliez pas de configurer votre `.env` dans votre backend. Car **SMTP_HOST, SMTP_POST, SMTP_USER et SMTP_PASSWORD** sont à inscrire dans les variables d'environnement.
+**ATTENTION :** N'oubliez pas de configurer votre `.env` dans votre backend. Car **SMTP_HOST, SMTP_POST, SMTP_USER et SMTP_PASSWORD** sont à inscrire dans les variables d'environnement.
 
 
 Puis nous allons créer un fichier `sendEmail.js` dans le dossier `services`. C'est dans ce fichier que nous allons y écrire notre logique d'envoi d'émails :
@@ -141,6 +141,13 @@ Puis nous appelons la méthode `insert` du manager pour enregistrer l'émail dan
   }
 ```
 
+**RAPPEL :** N'oubliez pas d'importer la fonction précédemment crée pour envoyer l'émail :
+
+```js
+const { sendMail } = require("../services/sendEmail");
+```
+
+En cas de succès de la requête SQL, nous envoyons l'émail avec la fonction `sendMail` avec en paramètre l'objet `message`.
 
 
 
