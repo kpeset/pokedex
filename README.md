@@ -2,8 +2,8 @@
 
 ## Objectif de l'atelier
 
-Dans cet atelier, nous allons créer la logique de code afin d'afficher les conversations entre les utilisateurs.
-Je ne vais pas revenir sur des explications liées aux `Props`. En cas de problèmes, consultez la doc, les quêtes ou le support [**Harry Potter**](https://github.com/kpeset/hp-support-for-react/tree/step_01).
+Dans cet atelier, nous allons créer la logique de code afin d'afficher de pouvoir s'inscrire à la newsletter. Nous verrons aussi comment un admin peut envoyer un messages à tous les inscrits.
+Côté backend, nous aurons besoin de [**Nodemailer**](https://www.npmjs.com/package/nodemailer).
 <br>
 <br>
 ## Les étapes
