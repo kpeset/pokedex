@@ -140,6 +140,22 @@ Si `infoUser.role` est `admin` alors nous afficherons les liens du backoffice. S
 
 ## Rôles et Routes privées
 
+Ce n'est pas parce qu'un utilisateur ne peut pas voir le lien **backoffice** qu'il ne peut pas y accéder si il entre à la main l'url **/backoffice** dans son URL.
+C'est pour cela que nous devons maintenant créer des **route privées**.
+
+Nous allons créer un composant `PrivateRoute` dans le dossier `services`. Il va nous aider à gérer la navigation et l'accès aux routes privées dans notre application : 
+
+```js
+import { Navigate } from "react-router-dom";
+
+export default function PrivateRoute({ isAllowed, children }) {
+  if (!isAllowed) {
+    return <Navigate to="/" />;
+  }
+  return children;
+}
+```
+
 
 
 
