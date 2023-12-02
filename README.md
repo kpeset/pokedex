@@ -56,6 +56,9 @@ Comme vous pouvez le remarquer, nous n'avons pas hashé le password.
 Le controller aura pour tâche uniquement d'intéragir avec le model. Nous aurions pu mettre la logique de hashage mais il est important de continuer à structurer nos fichiers.
 Toute la logique de hashage et de controle des données envoyées via Joi se feront dans un middleware. 
 
+<br>
+<br>
+
 ### Création du middleware de vérification des champs
 
 Le premier middleware que nous allons créer consistera à vérifier avec Joi que `email` est bien un email et que `password` est bien une chaine de caractère qui contient au minimum 8 caractères :
@@ -85,6 +88,9 @@ const validateUser = (req, res, next) => {
 
 Nous allons utiliser la méthode `validate` sur notre `userSchema` et prendra en paramètre ce qu'il y a dans notre `req.body`.
 Si les champs sont sorrects, nous pourrons passer au middleware suivant. Ce middleware s'occupera de hasher le password.
+
+<br>
+<br>
 
 ### Création du middleware de hashage de password
 
@@ -127,6 +133,9 @@ const hashPassword = (req, res, next) => {
 
 Nous allons utiliser la méthode `hash` d'argon2. Cette méthode prend deux paramètres. Ce qu'il y a dans le `req.body.password` et les options de hashage.
 Si la réponse est positive, alors nous mettons ce nouveau password `hashedPassword` dans `req.body.hashedPassword` puis nous ferons un `next` qui nous dirigera vers la méthode `postUser` de notre controller.
+
+<br>
+<br>
 
 ### Création de la route
 
