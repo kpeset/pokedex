@@ -11,7 +11,6 @@ Donc n'oubliez pas d'installer ces deux packages NPM  dans votre backend !
 
 ## Analyse du code
 
-
 Le but de cette nouvelle fonctionnalité sera d'uploader une image lors de la création d'un pokemon car jusqu'à maintenant nous mettions directement l'url d'une image présente sur le web.
 Voici les étapes pour uploader un fichier :
 
@@ -20,7 +19,7 @@ Voici les étapes pour uploader un fichier :
 
 Dans la mesure où nous avons ici deux étapes, on arrive à la conclusion que l'upload se fera via un middleware et que l'ajout du nom du fichier dans la BDD se fera dans un controller.
 
-
+### Création du middleware upload
 Nous allons dans un premier temps créer le middleware pour uploader un fichier. Nous avons crée dans le dossier des middlewares un fichier `upload.js` :
 
 ```js
@@ -47,10 +46,17 @@ const uploadFile = (req, res, next) => {
 module.exports = { uploadFile };
 ```
 
+La fonction `storage` nous permet de configurer l'upload :
+
 - La méthode  `diskStorage` de multer nous permet de personnaliser l'emplacement et le nom du fichier uploadé
 - La destination est le répertoire dans lequel sera enregistré le fichier. **ATTENTION** : Pensez bien à créer le dossier car multer ne va pas le créer pour vous.
 - Le filename est le nom du fichier. Ici nous générons un id unique avec **uuid** puis le concaténons avec `path.extname` afin de garder l'extension du fichier. Nous ajoutons aussi le préfix "pokemon-" au nom du fichier final.
-- Nous exportons la fonction `upload` afin de l'utiliser comme middleware sur nos routes.
+
+Ensuite nous avons crée la fonction `uploadFile` que nous exporterons afin de l'utiliser en tant que middleware sur nos routes.
+
+
+
+
 
 
 
