@@ -97,5 +97,47 @@ Nous avons ensuite mis à jour la navbar de la façon suivante :
 - Si un admin est connecté, il peut accéder au backoffice et à la liste des pokemon
 - Si un utilisateur est connecté, il peut accéder qu'à la liste des pokemon
 
-Nous avons donc 
+Nous avons donc besoin de consommer notre context dans `Navbar.jsx`.
+
+
+Nous devons d'abord exporter `useContext` puis notre context :
+
+```js
+import { useContext } from "react";
+import ExportContext from "../contexts/Context";
+```
+
+Et pour utiliser ce que l'on souhaite, nous allons utiliser le destructuring sur notre context :
+
+```js
+  const { infoUser } = useContext(ExportContext.Context);
+```
+
+Ici nous utiliserons uniquement `infoUser` qui provient du context.
+
+Maintenant nous pouvons utiliser ces informations pour ajouter des conditions à notre navbar en utilisant les ternaires :
+
+```jsx
+{infoUser.role === "admin" ? (
+          <>
+            <li>
+              <Link to="/backoffice">Backoffice</Link>
+            </li>
+
+            <li>
+              <Link to="/updatePokemon">UpdatePokemon</Link>
+            </li>
+          </>
+        ) : (
+          ""
+        )}
+```
+
+Si `infoUser.role` est `admin` alors nous afficherons les liens du backoffice. Sinon nous afficherons une chaine de caractères vide.
+
+
+
+
+
+
   
