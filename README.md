@@ -96,3 +96,26 @@ const verifyPassword = (req, res) => {
     });
 };
 ```
+
+La première chose que fait cette fonction est de comparer via la méthode `verify` de Argon2 le hashedPassword qui provient du `req.user` (nous avons enregistré les données de l'utilisateur dans `req.user` lors de la vérification de l'émail) avec la password qui provient du body de la requête.
+
+Si nous n'avons pas d'erreurs alors nous allons créer notre payload qui contiendra toutes les informations que l'on souhaite y mettre. Dans cet exemple nous avons voulu y mettre l'id et l'émail mais nous aurions pu y mettre d'autres choses.
+
+
+Nous allons maintenant générer notre token avec la méthode `sign` de jwt. Celle-ci prend deux paramètres : le payload précédemment crée et un password que vous devez créer :
+
+```js
+        const token = jwt.sign(payload, process.env.JWT_SECRET, {
+          expiresIn: "1h",
+        });
+```
+
+
+**RAPPEL : ** Nous conservons ce password dans notre `.env` du backend :
+
+```
+JWT_SECRET=VOTREMOTDEPASSE
+```
+
+Une fois que ce token est généré nous envoyons en réponse au client un cookie appelé **authToken** qui contiendra notre token.
+
