@@ -132,6 +132,45 @@ router.post("/login", auth.checkEmailIfExist, userControllers.verifyPassword);
 Le but de la connexion d'utilisateur est de permettre de protéger du contenu qui normalemment est réservé à un utilisateur connecté. Nous allons créer alors un middleware qui vérifiera si l'utilisateur possède un cookie. Puis le token que contient le cookie sera analyser par JWT afin de vérifier son authenticité.
 
 
+Nous allons donc créer dans `auth` un middleware pour vérifier le cookie :
+
+```js
+const checkIfIsAllowed = (req, res, next) => {
+  try {
+    const { authToken } = req.cookies;
+    console.info("token de checkIfIsAllowed: ", authToken);
+
+    if (!authToken) {
+      return res.sendStatus(401);
+    }
+
+    const payload = jwt.verify(authToken, process.env.JWT_SECRET);
+
+    req.user = payload;
+    console.info(payload);
+
+    return next();
+  } catch {
+    return res.sendStatus(401);
+  }
+};
+```
+
+
+Cette fonction `checkIfIsAllowed` va d'abord récupérer le `authToken` qui se trouve dans le cookie :
+
+```js
+    const { authToken } = req.cookies;
+```
+
+Si il n'y a pas de token alors nous envoyons au client une réponse 401. 
+Si il y a token alors nous allons procéder à la vérification du token avec la méthode `verify` de JWT. Nous enregistrons ensuite les données du token dans `req.user` puis nous faisons un `next()`. Si la vérification du token échoue alors nous enverrons au client un status 401.
+
+Il ne nous reste plus qu'à utiliser notre middleware sur la route que l'on souhaite. Ici nous avons fait le choix de l'utiliser sur la route `/pokemon`, mais libre à vous de l'utiliser où vous voulez :
+
+```js
+router.get("/pokemon", auth.checkIfIsAllowed, pokemonControllers.browse);
+```
 
 
 
