@@ -65,6 +65,8 @@ Puis ensuite nous utiliserons la fonction `searchByEmail` que nous avons précé
 
 
 Maintenant nous allons passer à la vérification du password qui se fera dans `userControllers`. Nous aurons besoin de **JWT** et de **Argon2**, donc n'oubliez pas de les importer.
+
+
 La logique est la suivante : **lorsque la vérification du password avec Argon2 est faite, alors nous allons générer un token avec JWT que nous enregistrerons dans un cookie.**
 
 
