@@ -55,6 +55,8 @@ Les `?` seront remplacés dans l'ordre par les éléments qui sont dans le table
 ```js
  [pokemon.name, pokemon.type, pokemon.weight, pokemon.image]
 ```
+<br>
+<br>
 
 ### Création du controller pour créer un pokemon
 Pour créer un pokemon, nous avons crée la fonction suivante dans notre controller :
@@ -78,6 +80,9 @@ const add = (req, res) => {
 
 - `models.pokemon` signifie que nous allons utiliser le model **pokemon**
 - `.insert` est la fonction que nous acons crée précédement dans notre `pokemonManager`. Fonction qui prend en paramètre `pokemon`, informations que nous allons récupérer depuis le `req.body`.
+
+<br>
+<br>
 
 ### Création des routes
 
