@@ -156,6 +156,12 @@ export default function PrivateRoute({ isAllowed, children }) {
 }
 ```
 
+Ce composant prend deux props :
+- isAllowed est un boolean qui nous permettra de déterminer si un utilisateur peut accéder à la route ou non
+- children est le composant enfant qui est affiché si l'utilisateur est autorisé à accéder à la route
+
+Si l'utisateur est autorisé alors nous afficherons le composant enfant. Si il n'est pas autorisé alors l'utilisateur sera redirigé vers `"/"`.
+
 
 
 
