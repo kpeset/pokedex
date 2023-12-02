@@ -53,7 +53,16 @@ La fonction `storage` nous permet de configurer l'upload :
 - La destination est le répertoire dans lequel sera enregistré le fichier. **ATTENTION** : Pensez bien à créer le dossier car multer ne va pas le créer pour vous.
 - Le filename est le nom du fichier. Ici nous générons un id unique avec **uuid** puis le concaténons avec `path.extname` afin de garder l'extension du fichier. Nous ajoutons aussi le préfix "pokemon-" au nom du fichier final.
 
-Ensuite nous avons crée la fonction `uploadFile` que nous exporterons afin de l'utiliser en tant que middleware sur nos routes.
+Ensuite nous avons crée la fonction `uploadFile` que nous exporterons afin de l'utiliser en tant que middleware sur notre route de création du pokemon (n'oubliez pas de l'importer) : 
+
+```js
+router.post("/pokemon", uploadMiddleware.uploadFile, pokemonControllers.add);
+```
+
+
+
+
+### Modification de la requête SQL et du controller
 
 
 
