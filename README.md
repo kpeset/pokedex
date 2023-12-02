@@ -95,6 +95,8 @@ Afin d'améliorer l'expérience utilisateur nous avons mis en place un système 
         });
 ```
 
-Tous les messages d'erreurr situés dans les conditions proviennent du backend (générés par Joi ou Mysql selon l'erreur).
+Tous les messages d'erreur situés dans les conditions proviennent du backend (générés par Joi ou Mysql selon l'erreur).
 La gestion des erreurs et des succès se gère via deux states `setSucces` et `setError` qui sont faux par défaut.
 Si il y a erreur alors `succes` reste à `false` et `error` devient `true`. Si il n'y a pas d'erreurs alors `error` passe à `false` et `succes` à `true`.
+
+**Note :** Il est totalement possible de modifier les messages d'erreurs de Joi ! Côté React nous n'aurons alors pas à faire toutes ces conditions.
